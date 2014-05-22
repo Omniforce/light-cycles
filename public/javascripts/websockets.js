@@ -5,8 +5,9 @@ socket.on('connect', function() {
 });
 
 socket.on('updateGame', function(data) {
-	player = JSON.parse(data);
-	drawPlayer(context, player.x, player.y, player.color);
+	players = JSON.parse(data);
+	drawPlayer(context, players.player1.x, players.player1.y, players.player1.color);
+	drawPlayer(context, players.player2.x, players.player2.y, players.player2.color);
 });
 
 socket.on('gameOver', function() {

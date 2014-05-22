@@ -1,13 +1,18 @@
-function Player(color, direction) {
+function Player(x, y, color, direction) {
 	this.active = false;
 	this.direction = direction;
 	this.color = color;
-	this.x = 0;
-	this.y = 20;
-	this.wall = [];
+	this.x = x;
+	this.y = y;
 
-	this.move = function() {
-		this.wall.push({ x: this.x, y: this.y });
+	this.reset = function(x,y,direction){
+		this.x = x;
+		this.y = y;
+		this.direction = direction;
+	}
+
+	this.move = function(wall) {
+		wall.push({ x: this.x, y: this.y });
 
 		switch(this.direction) {
 		case "up":
@@ -36,6 +41,6 @@ function Player(color, direction) {
 	}
 }
 
-module.exports = function(color, direction) {
-	return new Player(color, direction);
+module.exports = function(x, y, color, direction) {
+	return new Player(x, y, color, direction);
 }
