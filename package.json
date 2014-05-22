@@ -1,0 +1,10 @@
+{
+  "name": "tron",
+  "description": "tron light bike game",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "4.2",
+    "socket.io": "0.9.16"
+  }
+}
