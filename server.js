@@ -15,7 +15,6 @@ app.get('/', function(req, res) {
 });
 
 var game = require('./app/game.js');
-game.areSame();
 
 io.sockets.on('connection', function(socket) {
 
