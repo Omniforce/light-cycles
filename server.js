@@ -24,6 +24,10 @@ io.sockets.on('connection', function(socket) {
 		game.player1.direction = keyData.key;
 	});
 
+	socket.on('disconnect', function(){
+		clearInterval(timer);
+	});
+
 	updateGame = function() {
 		game.tick();
 		io.sockets.emit("updateGame", JSON.stringify(game.jsonifyGame()));
