@@ -27,10 +27,13 @@ function Player(color, direction) {
 	this.isTouchingWall = function(wall) {
 		var x = this.x;
 		var y = this.y;
+
+		isTouching = false;
 		wall.forEach(function(seg) {
-			if(seg.x == x && seg.y == y) { console.log("WHAT"); return true; }
+			console.log(seg.x, seg.y);
+			if(seg.x == x && seg.y == y) { isTouching = true; }
 		});
-		return false;
+		return isTouching;
 	}
 }
 

@@ -19,6 +19,7 @@ function Game() {
 	}
 
 	this.isDead = function(player) {
+		console.log(player.isTouchingWall(this.player1.wall));
 		return this.isTouchingBorder(player) ||
 			player.isTouchingWall(this.player1.wall);
 	}
