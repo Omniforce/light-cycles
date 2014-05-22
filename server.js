@@ -15,6 +15,7 @@ app.get('/', function(req, res) {
 });
 
 var game = require('./app/game.js');
+var timer;
 
 io.sockets.on('connection', function(socket) {
 
@@ -26,7 +27,8 @@ io.sockets.on('connection', function(socket) {
 	updateGame = function() {
 		game.tick();
 		io.sockets.emit("updateGame", JSON.stringify(game.jsonifyGame()));
+		if(game.isDead(game.player1)){ clearInterval(timer); }
 	}
 
-	setInterval(updateGame, 18);
+	timer = setInterval(updateGame, 18);
 });

@@ -1,4 +1,4 @@
-var socket = io.connect('http://mabosltrowel-m4:3000');
+var socket = io.connect('http://localhost:3000');
 
 socket.on('connect', function() {
 	initialize();

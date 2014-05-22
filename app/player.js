@@ -23,6 +23,15 @@ function Player(color, direction) {
 			this.x+=1;
 		}
 	}
+
+	this.isTouchingWall = function(wall) {
+		var x = this.x;
+		var y = this.y;
+		wall.forEach(function(seg) {
+			if(seg.x == x && seg.y == y) { console.log("WHAT"); return true; }
+		});
+		return false;
+	}
 }
 
 module.exports = function(color, direction) {
