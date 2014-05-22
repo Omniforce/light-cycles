@@ -19,9 +19,18 @@ var timer;
 
 io.sockets.on('connection', function(socket) {
 	game.resetGame();
+
 	socket.on('keyPress', function(data) {
+		opposites = {
+			"up": "down",
+			"left": "right",
+			"down": "up",
+			"right": "left"
+		}
+
 		keyData = JSON.parse(data);
-		game.player1.direction = keyData.key;
+		if(opposites[keyData.key] != game.player1.direction)
+			game.player1.direction = keyData.key;
 	});
 
 	socket.on('disconnect', function(){
