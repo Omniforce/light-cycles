@@ -15,6 +15,7 @@ app.get('/', function(req, res) {
 });
 
 var game = require('./app/game.js');
+var timer;
 
 io.sockets.on('connection', function(socket) {
 
@@ -23,10 +24,15 @@ io.sockets.on('connection', function(socket) {
 		game.player1.direction = keyData.key;
 	});
 
+	socket.on('disconnect', function(){
+		clearInterval(timer);
+	});
+
 	updateGame = function() {
 		game.tick();
 		io.sockets.emit("updateGame", JSON.stringify(game.jsonifyGame()));
 	}
 
-	setInterval(updateGame, 18);
+	timer = setInterval(updateGame, 18);
+
 });
