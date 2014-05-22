@@ -14,6 +14,9 @@ app.get('/', function(req, res) {
 	res.sendfile(__dirname + '/index.html');
 });
 
+var game = require('./app/game.js');
+game.areSame();
+
 io.sockets.on('connection', function(socket) {
 
 });
