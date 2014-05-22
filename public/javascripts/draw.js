@@ -17,6 +17,12 @@ function drawPlayer(ctx, gridx, gridy, color) {
 	ctx.fillRect(x, y, cellSize, cellSize);
 }
 
+function drawGameOver(ctx) {
+	ctx.font = '50pt Gothic';
+    ctx.fillStyle = 'white';
+    ctx.fillText("GAME OVER", 105, 250);
+}
+
 function initialize() {
 	canvas = document.getElementById("canvas");
 	context = canvas.getContext("2d");

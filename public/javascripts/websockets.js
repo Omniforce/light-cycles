@@ -8,3 +8,7 @@ socket.on('updateGame', function(data) {
 	player = JSON.parse(data);
 	drawPlayer(context, player.x, player.y, player.color);
 });
+
+socket.on('gameOver', function() {
+	drawGameOver(context);
+});

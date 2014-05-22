@@ -28,10 +28,14 @@ io.sockets.on('connection', function(socket) {
 		clearInterval(timer);
 	});
 
+	gameOver = function() {
+		io.sockets.emit("gameOver")
+	}
+
 	updateGame = function() {
 		game.tick();
 		io.sockets.emit("updateGame", JSON.stringify(game.jsonifyGame()));
-		if(game.isDead(game.player1)){ clearInterval(timer); }
+		if(game.isDead(game.player1)){ clearInterval(timer); gameOver(); }
 	}
 
 	timer = setInterval(updateGame, 18);
