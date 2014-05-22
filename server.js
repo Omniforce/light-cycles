@@ -18,7 +18,7 @@ var game = require('./app/game.js');
 var timer;
 
 io.sockets.on('connection', function(socket) {
-
+	game.resetGame();
 	socket.on('keyPress', function(data) {
 		keyData = JSON.parse(data);
 		game.player1.direction = keyData.key;

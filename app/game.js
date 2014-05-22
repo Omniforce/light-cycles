@@ -23,6 +23,13 @@ function Game() {
 		return this.isTouchingBorder(player) ||
 			player.isTouchingWall(this.player1.wall);
 	}
+
+	this.resetGame = function(){
+		this.player1.wall = []
+		this.player1.x = 0;
+		this.player1.y = 20;
+		this.player1.direction = 'right';
+	}
 }
 
 module.exports = new Game();
