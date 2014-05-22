@@ -30,7 +30,6 @@ function Player(color, direction) {
 
 		isTouching = false;
 		wall.forEach(function(seg) {
-			console.log(seg.x, seg.y);
 			if(seg.x == x && seg.y == y) { isTouching = true; }
 		});
 		return isTouching;
