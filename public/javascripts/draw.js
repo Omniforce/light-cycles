@@ -1,12 +1,12 @@
 var canvas;
 var context;
 var width = 600;
-var height = 400;
+var height = 600;
 var cellSize = 5;
 
 function drawBoard(ctx) {
 	ctx.fillStyle = "#000000";
-	ctx.fillRect(0, 0, 600, 400);
+	ctx.fillRect(0, 0, width, height);
 	console.log("DRAWING BOARD");
 }
 
