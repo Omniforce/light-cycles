@@ -1,10 +1,20 @@
 var canvas;
 var context;
+var width = 600;
+var height = 400;
+var cellSize = 10;
 
 function drawBoard(ctx) {
-	ctx.rect(0, 0, 600, 400);
 	ctx.fillStyle = "#000000";
-	ctx.fill();
+	ctx.fillRect(0, 0, 600, 400);
+	console.log("DRAWING BOARD");
+}
+
+function drawPlayer(ctx, gridx, gridy, color) {
+	var x = gridx * cellSize;
+	var y = gridy * cellSize;
+	ctx.fillStyle = color;
+	ctx.fillRect(x, y, cellSize, cellSize);
 }
 
 function initialize() {

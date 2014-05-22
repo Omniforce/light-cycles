@@ -1,6 +1,6 @@
 {
   "name": "tron",
-  "description": "tron light bike game",
+  "description": "tron lightcycles game",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
