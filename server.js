@@ -21,7 +21,6 @@ io.sockets.on('connection', function(socket) {
 	socket.on('keyPress', function(data) {
 		keyData = JSON.parse(data);
 		game.player1.direction = keyData.key;
-		console.log(keyData.key);
 	});
 
 	updateGame = function() {
@@ -29,5 +28,5 @@ io.sockets.on('connection', function(socket) {
 		io.sockets.emit("updateGame", JSON.stringify(game.jsonifyGame()));
 	}
 
-	setInterval(updateGame, 16);
+	setInterval(updateGame, 18);
 });

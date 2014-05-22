@@ -7,6 +7,8 @@ function Player(color, direction) {
 	this.wall = [];
 
 	this.move = function() {
+		this.wall.push({ x: this.x, y: this.y });
+
 		switch(this.direction) {
 		case "up":
 			this.y-=1;
