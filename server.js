@@ -33,7 +33,13 @@ io.sockets.on('connection', function(socket) {
 		}
 
 		keyData = JSON.parse(data);
-		if(socket.player === 1) {
+
+		if(keyData.key === "r" && game.player1.active && game.player2.active) {
+			game.reset();
+			reset();
+			timer = setInterval(updateGame, 18);
+		}
+		else if(socket.player === 1) {
 			if(opposites[keyData.key] != game.player1.direction)
 				game.player1.direction = keyData.key;
 		}
@@ -48,14 +54,17 @@ io.sockets.on('connection', function(socket) {
 		else if(socket.player === 2) { game.player2.active = false; clearInterval(timer); }
 	});
 
-	gameOver = function() {
-		io.sockets.emit("gameOver")
+	gameOver = function(winningPlayer) {
+		io.sockets.emit("gameOver", winningPlayer);
 	}
 
 	updateGame = function() {
 		game.tick();
+
 		io.sockets.emit("updateGame", JSON.stringify(game.jsonifyGame()));
-		if(game.isDead(game.player1)){ clearInterval(timer); gameOver(); }
+
+		if(game.isDead(game.player1)){ clearInterval(timer); gameOver("Player 2"); }
+		else if(game.isDead(game.player2)){ clearInterval(timer); gameOver("Player 1"); }
 	}
 
 	reset = function() {
@@ -65,17 +74,14 @@ io.sockets.on('connection', function(socket) {
 
 function addPlayer(socket) {
 	if(!game.player1.active) {
-		console.log("Player 1");
 		game.player1.active = true;
 		socket.player = 1;
 	}
 	else if(!game.player2.active) {
-		console.log("Player 1");
 		game.player2.active = true;
 		socket.player = 2;
 	}
 	if(game.player1.active && game.player2.active) {
-		console.log("Game Start");
 		game.reset();
 		reset();
 		timer = setInterval(updateGame, 18);

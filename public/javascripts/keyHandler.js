@@ -15,6 +15,9 @@ $(function(){
 		else if(event.keyCode === 40){
 			keyData = {key:'down'};
 		}
+		else if(event.keyCode === 82) {
+			if(!gameOver) { keyData = { key:'r' }; }
+		}
 		else{
 			return;
 		}

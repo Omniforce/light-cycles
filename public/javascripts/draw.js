@@ -16,10 +16,16 @@ function drawPlayer(ctx, gridx, gridy, color) {
 	ctx.fillRect(x, y, cellSize, cellSize);
 }
 
-function drawGameOver(ctx) {
+function drawGameOver(ctx, winningPlayer) {
 	ctx.font = '50pt Gothic';
     ctx.fillStyle = 'white';
     ctx.fillText("GAME OVER", 105, 250);
+
+    ctx.font = '30pt Gothic';
+    ctx.fillText(winningPlayer + " wins!", 190, 300);
+
+    ctx.font = '15pt Gothic';
+    ctx.fillText("Press r to restart", 235, 330);
 }
 
 function initialize() {
