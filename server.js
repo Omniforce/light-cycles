@@ -17,6 +17,13 @@ app.get('/', function(req, res) {
 var game = require('./app/game.js');
 
 io.sockets.on('connection', function(socket) {
+
+	socket.on('keyPress', function(data) {
+		keyData = JSON.parse(data);
+		game.player1.direction = keyData.key;
+		console.log(keyData.key);
+	});
+
 	updateGame = function() {
 		game.tick();
 		io.sockets.emit("updateGame", JSON.stringify(game.jsonifyGame()));

@@ -2,7 +2,7 @@ var canvas;
 var context;
 var width = 600;
 var height = 400;
-var cellSize = 10;
+var cellSize = 5;
 
 function drawBoard(ctx) {
 	ctx.fillStyle = "#000000";

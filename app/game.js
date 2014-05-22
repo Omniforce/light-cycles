@@ -1,5 +1,5 @@
 function Game() {
-	this.player1 = require('./player')("#ffffff", "right");
+	this.player1 = require('./player')("blue", "right");
 	// this.player2 = require('./player')("red");
 
 	this.tick = function() {
