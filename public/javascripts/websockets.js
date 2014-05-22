@@ -1,6 +1,7 @@
 var socket = io.connect('http://localhost:3000');
 
 socket.on('connect', function() {
+	socket.emit('newPlayer');
 	initialize();
 });
 
@@ -12,4 +13,9 @@ socket.on('updateGame', function(data) {
 
 socket.on('gameOver', function() {
 	drawGameOver(context);
+});
+
+socket.on('reset', function() {
+	console.log("RESETTING");
+	drawBoard(context);
 });

@@ -32,7 +32,7 @@ function Game() {
 			player.isTouchingWall(this.wall);
 	}
 
-	this.resetGame = function(){
+	this.reset = function(){
 		this.wall = []
 		this.player1.reset(10,60,'right');
 		this.player2.reset(110,60,'left');

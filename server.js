@@ -18,7 +18,11 @@ var game = require('./app/game.js');
 var timer;
 
 io.sockets.on('connection', function(socket) {
-	game.resetGame();
+	socket.on('newPlayer', function() {
+		if(!game.player1.active || !game.player2.active) {
+			addPlayer(socket);
+		}
+	})
 
 	socket.on('keyPress', function(data) {
 		opposites = {
@@ -29,12 +33,19 @@ io.sockets.on('connection', function(socket) {
 		}
 
 		keyData = JSON.parse(data);
-		if(opposites[keyData.key] != game.player1.direction)
-			game.player1.direction = keyData.key;
+		if(socket.player === 1) {
+			if(opposites[keyData.key] != game.player1.direction)
+				game.player1.direction = keyData.key;
+		}
+		else if(socket.player === 2) {
+			if(opposites[keyData.key] != game.player2.direction)
+				game.player2.direction = keyData.key;
+		}
 	});
 
 	socket.on('disconnect', function(){
-		clearInterval(timer);
+		if(socket.player === 1) { game.player1.active = false; clearInterval(timer); }
+		else if(socket.player === 2) { game.player2.active = false; clearInterval(timer); }
 	});
 
 	gameOver = function() {
@@ -47,5 +58,26 @@ io.sockets.on('connection', function(socket) {
 		if(game.isDead(game.player1)){ clearInterval(timer); gameOver(); }
 	}
 
-	timer = setInterval(updateGame, 18);
+	reset = function() {
+		io.sockets.emit("reset");
+	}
 });
+
+function addPlayer(socket) {
+	if(!game.player1.active) {
+		console.log("Player 1");
+		game.player1.active = true;
+		socket.player = 1;
+	}
+	else if(!game.player2.active) {
+		console.log("Player 1");
+		game.player2.active = true;
+		socket.player = 2;
+	}
+	if(game.player1.active && game.player2.active) {
+		console.log("Game Start");
+		game.reset();
+		reset();
+		timer = setInterval(updateGame, 18);
+	}
+}
