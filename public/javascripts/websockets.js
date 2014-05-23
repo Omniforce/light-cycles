@@ -4,6 +4,7 @@ var gameOver = false;
 socket.on('connect', function() {
 	socket.emit('newPlayer');
 	initialize();
+	drawSelectScreen(context);
 });
 
 socket.on('updateGame', function(data) {

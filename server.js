@@ -15,6 +15,7 @@ app.get('/', function(req, res) {
 });
 
 var game = require('./app/game.js');
+var pointer = require('./app/pointer.js');
 var timer;
 
 io.sockets.on('connection', function(socket) {
