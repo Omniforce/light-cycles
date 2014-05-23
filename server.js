@@ -34,7 +34,7 @@ io.sockets.on('connection', function(socket) {
 
 		keyData = JSON.parse(data);
 
-		if(keyData.key === "r" && game.player1.active && game.player2.active && !game.active) {
+		if(keyData.key === "r" && canReset()) {
 			game.reset();
 			reset();
 			timer = setInterval(updateGame, 18);
@@ -63,10 +63,10 @@ io.sockets.on('connection', function(socket) {
 	updateGame = function() {
 		game.tick();
 
-		io.sockets.emit("updateGame", JSON.stringify(game.jsonifyGame()));
+		if(game.isDead(game.player1)){ clearInterval(timer); gameOver("Player 2"); return; }
+		else if(game.isDead(game.player2)){ clearInterval(timer); gameOver("Player 1"); return; }
 
-		if(game.isDead(game.player1)){ clearInterval(timer); gameOver("Player 2"); }
-		else if(game.isDead(game.player2)){ clearInterval(timer); gameOver("Player 1"); }
+		io.sockets.emit("updateGame", JSON.stringify(game.jsonifyGame()));
 	}
 
 	reset = function() {
@@ -88,4 +88,10 @@ function addPlayer(socket) {
 		reset();
 		timer = setInterval(updateGame, 18);
 	}
+}
+
+function canReset() {
+	return game.player1.active 
+		&& game.player2.active 
+		&& !game.active;
 }
