@@ -1,5 +1,4 @@
 function Player(x, y, color, direction) {
-	this.active = false;
 	this.direction = direction;
 	this.color = color;
 	this.x = x;

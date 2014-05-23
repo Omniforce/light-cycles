@@ -4,6 +4,9 @@ function Game() {
 	this.player2 = require('./player')(110, 60, "red", "left");
 	this.wall;
 
+	this.maxPlayers;
+	this.playerCount = 0;
+
 	this.tick = function() {
 		this.player1.move(this.wall);
 		this.player2.move(this.wall);

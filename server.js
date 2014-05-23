@@ -18,13 +18,20 @@ var game = require('./app/game.js');
 var pointer = require('./app/pointer.js');
 var selectTimer;
 var gameTimer;
+var clients = {
+	"player1": false,
+	"player2": false,
+	"player3": false,
+	"player4": false
+};
+var state = "selecting"; // can be "selecting", "waiting", "playing"
 
 io.sockets.on('connection', function(socket) {
 	socket.on('newPlayer', function() {
 		if(!game.player1.active || !game.player2.active) {
 			addPlayer(socket);
 		}
-	})
+	});
 
 	socket.on('keyPress', function(data) {
 		opposites = {
@@ -36,26 +43,35 @@ io.sockets.on('connection', function(socket) {
 
 		keyData = JSON.parse(data);
 
-		if(keyData.key === "r" && canReset()) {
-			game.reset();
-			reset();
-			gameTimer = setInterval(updateGame, 18);
-		}
-		else if(socket.player === 1) {
-			if(opposites[keyData.key] != game.player1.direction)
-				game.player1.direction = keyData.key;
-			pointer.move(keyData.key);
-		}
-		else if(socket.player === 2) {
-			if(opposites[keyData.key] != game.player2.direction)
-				game.player2.direction = keyData.key;
+		if(state === "selecting") {
+			if(keyData.key === "enter") {
+
+			} else {
+				pointer.move(keyData.key);
+			}
+		} else if(state === "waiting") {
+
+		} else {
+			if(keyData.key === "r" && canReset()) {
+				game.reset();
+				reset();
+				gameTimer = setInterval(updateGame, 18);
+			}
+			else if(socket.player === 1) {
+				if(opposites[keyData.key] != game.player1.direction)
+					game.player1.direction = keyData.key;
+			}
+			else if(socket.player === 2) {
+				if(opposites[keyData.key] != game.player2.direction)
+					game.player2.direction = keyData.key;
+			}
 		}
 	});
 
 	socket.on('disconnect', function(){
 		game.active = false;
-		if(socket.player === 1) { game.player1.active = false; clearInterval(gameTimer); }
-		else if(socket.player === 2) { game.player2.active = false; clearInterval(gameTimer); }
+		if(socket.player === 1) { client["player1"] = false; clearInterval(gameTimer); }
+		else if(socket.player === 2) { client["player2"] = false; clearInterval(gameTimer); }
 	});
 
 	gameOver = function(winningPlayer) {
@@ -78,24 +94,32 @@ io.sockets.on('connection', function(socket) {
 	}
 
 	updatePointer = function() {
-		io.sockets.emit("updatePointer", JSON.stringify({ x: pointer.x, y: pointer.y }));
+		io.sockets.emit("updatePointer", JSON.stringify({ selection: pointer.selection }));
 	}
 });
 
 function addPlayer(socket) {
-	if(!game.player1.active) {
+	if(!clients["player1"]) {
 		game.player1.active = true;
 		socket.player = 1;
+		clients["player1"] = game.player1;
 		selectTimer = setInterval(updatePointer, 18);
-	}
-	else if(!game.player2.active) {
+		game.playerCount++;
+	} else if(!clients["player2"]) {
 		game.player2.active = true;
 		socket.player = 2;
-	}
-	if(game.player1.active && game.player2.active) {
-		game.reset();
-		reset();
-		gameTimer = setInterval(updateGame, 18);
+		clients["player2"] = game.player2;
+		game.playerCount++;
+	} else if(!clients["player3"]) {
+		game.player3.active = true;
+		socket.player = 3;
+		clients["player3"] = game.player3;
+		game.playerCount++;
+	} else if(!clients["player4"]) {
+		game.player4.active = true;
+		socket.player = 4;
+		clients["player4"] = game.player4;
+		game.playerCount++;
 	}
 }
 

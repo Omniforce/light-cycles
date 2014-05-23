@@ -18,6 +18,9 @@ $(function(){
 		else if(event.keyCode === 82) {
 			if(!gameOver) { keyData = { key:'r' }; }
 		}
+		else if(event.keyCode === 13) {
+			keyData = { key: 'enter' };
+		}
 		else{
 			return;
 		}
