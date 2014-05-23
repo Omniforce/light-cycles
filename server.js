@@ -44,6 +44,7 @@ io.sockets.on('connection', function(socket) {
 		else if(socket.player === 1) {
 			if(opposites[keyData.key] != game.player1.direction)
 				game.player1.direction = keyData.key;
+			pointer.move(keyData.key);
 		}
 		else if(socket.player === 2) {
 			if(opposites[keyData.key] != game.player2.direction)

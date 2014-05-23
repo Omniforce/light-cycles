@@ -24,5 +24,7 @@ socket.on('reset', function() {
 
 socket.on('updatePointer', function(data) {
 	pointer = JSON.parse(data);
+	initialize();
+	drawSelectScreen(context);
 	drawPointer(context, pointer.x, pointer.y);
 })

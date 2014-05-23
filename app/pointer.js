@@ -6,16 +6,16 @@ function Pointer(){
 		switch(direction){
 			case 'up':
 				if (this.y > 340){
-					this.y+=30;
+					this.y-=30;
 				}
 				break;
 			case 'down':
 				if (this.y < 400){
-					this.y-=30;
+					this.y+=30;
 				}
 				break;
 			default:
-				this.y=y;
+				this.y=this.y;
 		}
 	}
 }
