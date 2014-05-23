@@ -45,9 +45,9 @@ function drawSelectScreen(ctx) {
 
 function drawPointer(ctx, x, y) {
 	ctx.beginPath();
-    ctx.moveTo(pointer.x,pointer.y);
-    ctx.lineTo(pointer.x-25,pointer.y-25);
-    ctx.lineTo(pointer.x-25,pointer.y-50);
+    ctx.moveTo(pointer.x,pointer.y-5);
+    ctx.lineTo(pointer.x-10,pointer.y-15);
+    ctx.lineTo(pointer.x-10,pointer.y+5);
     ctx.fillStyle = 'white';
     ctx.fill();
 }
