@@ -19,6 +19,4 @@ function Pointer(){
 		}
 	}
 }
-module.exports = function(){
-	return new Pointer();
-}
+module.exports = new Pointer();

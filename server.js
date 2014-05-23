@@ -77,7 +77,6 @@ io.sockets.on('connection', function(socket) {
 	}
 
 	updatePointer = function() {
-		console.log(pointer.x, pointer.y);
 		io.sockets.emit("updatePointer", JSON.stringify({ x: pointer.x, y: pointer.y }));
 	}
 });
