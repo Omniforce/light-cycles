@@ -41,13 +41,15 @@ function drawSelectScreen(ctx) {
 	ctx.fillText('2 players', 260, 340);
 	ctx.fillText('3 players', 260, 370);
 	ctx.fillText('4 players', 260, 400);
+}
 
+function drawPointer(ctx, x, y) {
 	ctx.beginPath();
     ctx.moveTo(pointer.x,pointer.y);
     ctx.lineTo(pointer.x-25,pointer.y-25);
     ctx.lineTo(pointer.x-25,pointer.y-50);
+    ctx.fillStyle = 'white';
     ctx.fill();
-
 }
 
 function initialize() {

@@ -21,3 +21,8 @@ socket.on('gameOver', function(data) {
 socket.on('reset', function() {
 	drawBoard(context);
 });
+
+socket.on('updatePointer', function(data) {
+	pointer = JSON.parse(data);
+	drawPointer(context, pointer.x, pointer.y);
+})

@@ -16,7 +16,8 @@ app.get('/', function(req, res) {
 
 var game = require('./app/game.js');
 var pointer = require('./app/pointer.js');
-var timer;
+var selectTimer;
+var gameTimer;
 
 io.sockets.on('connection', function(socket) {
 	socket.on('newPlayer', function() {
@@ -38,7 +39,7 @@ io.sockets.on('connection', function(socket) {
 		if(keyData.key === "r" && canReset()) {
 			game.reset();
 			reset();
-			timer = setInterval(updateGame, 18);
+			gameTimer = setInterval(updateGame, 18);
 		}
 		else if(socket.player === 1) {
 			if(opposites[keyData.key] != game.player1.direction)
@@ -52,13 +53,13 @@ io.sockets.on('connection', function(socket) {
 
 	socket.on('disconnect', function(){
 		game.active = false;
-		if(socket.player === 1) { game.player1.active = false; clearInterval(timer); }
-		else if(socket.player === 2) { game.player2.active = false; clearInterval(timer); }
+		if(socket.player === 1) { game.player1.active = false; clearInterval(gameTimer); }
+		else if(socket.player === 2) { game.player2.active = false; clearInterval(gameTimer); }
 	});
 
 	gameOver = function(winningPlayer) {
 		game.active = false;
-		clearInterval(timer); 
+		clearInterval(gameTimer); 
 		io.sockets.emit("gameOver", winningPlayer);
 	}
 
@@ -74,12 +75,18 @@ io.sockets.on('connection', function(socket) {
 	reset = function() {
 		io.sockets.emit("reset");
 	}
+
+	updatePointer = function() {
+		console.log(pointer.x, pointer.y);
+		io.sockets.emit("updatePointer", JSON.stringify({ x: pointer.x, y: pointer.y }));
+	}
 });
 
 function addPlayer(socket) {
 	if(!game.player1.active) {
 		game.player1.active = true;
 		socket.player = 1;
+		selectTimer = setInterval(updatePointer, 18);
 	}
 	else if(!game.player2.active) {
 		game.player2.active = true;
@@ -88,7 +95,7 @@ function addPlayer(socket) {
 	if(game.player1.active && game.player2.active) {
 		game.reset();
 		reset();
-		timer = setInterval(updateGame, 18);
+		gameTimer = setInterval(updateGame, 18);
 	}
 }
 
