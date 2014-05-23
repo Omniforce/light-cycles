@@ -1,4 +1,5 @@
 function Game() {
+	this.active = false;
 	this.player1 = require('./player')(10, 60, "blue", "right");
 	this.player2 = require('./player')(110, 60, "red", "left");
 	this.wall;
@@ -36,6 +37,7 @@ function Game() {
 		this.wall = []
 		this.player1.reset(10,60,'right');
 		this.player2.reset(110,60,'left');
+		this.active = true;
 	}
 }
 

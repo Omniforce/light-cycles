@@ -34,7 +34,7 @@ io.sockets.on('connection', function(socket) {
 
 		keyData = JSON.parse(data);
 
-		if(keyData.key === "r" && game.player1.active && game.player2.active) {
+		if(keyData.key === "r" && game.player1.active && game.player2.active && !game.active) {
 			game.reset();
 			reset();
 			timer = setInterval(updateGame, 18);
@@ -50,11 +50,13 @@ io.sockets.on('connection', function(socket) {
 	});
 
 	socket.on('disconnect', function(){
+		game.active = false;
 		if(socket.player === 1) { game.player1.active = false; clearInterval(timer); }
 		else if(socket.player === 2) { game.player2.active = false; clearInterval(timer); }
 	});
 
 	gameOver = function(winningPlayer) {
+		game.active = false;
 		io.sockets.emit("gameOver", winningPlayer);
 	}
 
