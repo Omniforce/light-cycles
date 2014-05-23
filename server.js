@@ -57,14 +57,15 @@ io.sockets.on('connection', function(socket) {
 
 	gameOver = function(winningPlayer) {
 		game.active = false;
+		clearInterval(timer); 
 		io.sockets.emit("gameOver", winningPlayer);
 	}
 
 	updateGame = function() {
 		game.tick();
 
-		if(game.isDead(game.player1)){ clearInterval(timer); gameOver("Player 2"); return; }
-		else if(game.isDead(game.player2)){ clearInterval(timer); gameOver("Player 1"); return; }
+		if(game.isDead(game.player1)){ gameOver("Player 2"); return; }
+		else if(game.isDead(game.player2)){ gameOver("Player 1"); return; }
 
 		io.sockets.emit("updateGame", JSON.stringify(game.jsonifyGame()));
 	}
