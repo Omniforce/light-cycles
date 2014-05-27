@@ -49,12 +49,13 @@ io.sockets.on('connection', function(socket) {
 					game.maxPlayers = pointer.selection;
 					state = "waiting";
 					clearInterval(selectTimer);
+					io.sockets.emit('waiting');
 				} else {
 					pointer.move(keyData.key);
 				}
 			}
 		} else if(state === "waiting") {
-			io.sockets.emit('waiting');
+
 		} else {
 			if(keyData.key === "r" && canReset()) {
 				game.reset();

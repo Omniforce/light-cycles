@@ -3,6 +3,7 @@ var context;
 var width = 600;
 var height = 600;
 var cellSize = 5;
+var dots = "."
 
 function drawBoard(ctx) {
 	ctx.fillStyle = "#000000";
@@ -63,15 +64,18 @@ function initialize() {
 	drawBoard(context);
 }
 
-function drawWaiting1(ctx){
+function drawWaiting(ctx){
 	drawBoard(ctx);
 	ctx.font = '30 Gothic'
 	ctx.fillStyle = 'white';
-	ctx.fillText('Waiting for players .', 200, 340);
+	ctx.fillText('Waiting for players' + dots, 200, 340);
+
+	if(dots.length >= 3) { dots = "."; }
+	else { dots += "."; }
 }
-function drawWaiting2(ctx){
-	ctx.fillText('.', 450, 340);
-}
-function drawWaiting3(ctx){
-	ctx.fillText('.', 460, 340);
-}
+// function drawWaiting2(ctx){
+// 	ctx.fillText('.', 450, 340);
+// }
+// function drawWaiting3(ctx){
+// 	ctx.fillText('.', 460, 340);
+// }

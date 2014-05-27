@@ -1,5 +1,6 @@
 var socket = io.connect('http://localhost:3000');
 var gameOver = false;
+var waitingTimer;
 
 socket.on('connect', function() {
 	socket.emit('newPlayer');
@@ -25,10 +26,8 @@ socket.on('reset', function() {
 socket.on('updatePointer', function(data) {
 	selection = JSON.parse(data).selection;
 	drawPointer(context, selection);
-})
+});
 
 socket.on('waiting',function(){
-	drawWaiting1(context);
-	drawWaiting2(context);
-	drawWaiting3(context);
-})
+	waitingTimer = setInterval(function() { drawWaiting(context) }, 1000);
+});
