@@ -48,6 +48,7 @@ io.sockets.on('connection', function(socket) {
 				if(keyData.key === "enter") {
 					game.maxPlayers = pointer.selection;
 					state = "waiting";
+					clearInterval(selectTimer);
 				} else {
 					pointer.move(keyData.key);
 				}
@@ -134,6 +135,7 @@ function addPlayer(socket) {
 	}
 
 	if(game.maxPlayers == game.playerCount && !game.active) {
+		game.reset();
 		gameTimer = setInterval(updateGame, 18);
 	}
 }

@@ -2,7 +2,7 @@ function Game() {
 	this.active = false;
 	this.player1 = require('./player')(10, 60, "blue", "right");
 	this.player2 = require('./player')(110, 60, "red", "left");
-	this.wall;
+	this.wall = [];
 
 	this.maxPlayers;
 	this.playerCount = 0;
