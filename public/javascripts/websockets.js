@@ -27,8 +27,8 @@ socket.on('updatePointer', function(data) {
 	drawPointer(context, selection);
 })
 
-socket.on('waiting'){
+socket.on('waiting',function(){
 	drawWaiting1(context);
 	drawWaiting2(context);
 	drawWaiting3(context);
-}
+})
