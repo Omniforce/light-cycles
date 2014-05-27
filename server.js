@@ -44,10 +44,13 @@ io.sockets.on('connection', function(socket) {
 		keyData = JSON.parse(data);
 
 		if(state === "selecting") {
-			if(keyData.key === "enter") {
-
-			} else {
-				pointer.move(keyData.key);
+			if (socket.player === 1) {
+				if(keyData.key === "enter") {
+					game.maxPlayers = pointer.selection;
+					state = "waiting";
+				} else {
+					pointer.move(keyData.key);
+				}
 			}
 		} else if(state === "waiting") {
 
@@ -128,6 +131,10 @@ function addPlayer(socket) {
 		socket.player = 4;
 		clients["player4"] = game.player4;
 		game.playerCount++;
+	}
+
+	if(game.maxPlayers == game.playerCount && !game.active) {
+		gameTimer = setInterval(updateGame, 18);
 	}
 }
 
