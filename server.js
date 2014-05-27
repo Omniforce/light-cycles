@@ -136,6 +136,7 @@ function addPlayer(socket) {
 	}
 
 	if(game.maxPlayers == game.playerCount && !game.active) {
+		io.sockets.emit('startGame');
 		game.reset();
 		gameTimer = setInterval(updateGame, 18);
 	}

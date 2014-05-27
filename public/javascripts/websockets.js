@@ -8,6 +8,11 @@ socket.on('connect', function() {
 	drawSelectScreen(context);
 });
 
+socket.on('startGame', function(event) {
+	drawBoard(context);
+	clearInterval(waitingTimer);
+});
+
 socket.on('updateGame', function(data) {
 	players = JSON.parse(data);
 	drawPlayer(context, players.player1.x, players.player1.y, players.player1.color);
