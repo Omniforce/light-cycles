@@ -54,7 +54,7 @@ io.sockets.on('connection', function(socket) {
 						io.sockets.emit('startGame');
 						game.reset();
 						gameTimer = setInterval(updateGame, 18);
-					}else{
+					} else{
 						state = "waiting";
 						io.sockets.emit('waiting');
 					}	
@@ -83,11 +83,7 @@ io.sockets.on('connection', function(socket) {
 	socket.on('disconnect', function(){
 		game.active = false;
 
-		var maxPlayers = game.maxPlayers || 4;
-
-		console.log(maxPlayers);
-
-		for(var i = 1; i <= maxPlayers; i++) {
+		for(var i = 1; i <= 4; i++) {
 			if(socket.player === i) {
 				clients["player"+i] = false;
 				clearInterval(gameTimer);
@@ -148,6 +144,7 @@ function addPlayer(socket) {
 	}
 	if(game.maxPlayers == game.playerCount && !game.active) {
 		io.sockets.emit('startGame');
+		state = 'playing';
 		game.reset();
 		gameTimer = setInterval(updateGame, 18);
 	}
