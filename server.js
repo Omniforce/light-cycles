@@ -55,7 +55,6 @@ io.sockets.on('connection', function(socket) {
 				}
 			}
 		} else if(state === "waiting") {
-
 		} else {
 			if(keyData.key === "r" && canReset()) {
 				game.reset();
@@ -134,7 +133,9 @@ function addPlayer(socket) {
 		clients["player4"] = game.player4;
 		game.playerCount++;
 	}
-
+	if(socket.player > 1 && state === 'waiting'){
+		io.sockets.emit('waiting');
+	}
 	if(game.maxPlayers == game.playerCount && !game.active) {
 		io.sockets.emit('startGame');
 		game.reset();
