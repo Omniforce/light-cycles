@@ -1,4 +1,5 @@
-function Player(x, y, color, direction) {
+function Player(player, x, y, color, direction) {
+	this.player = player;
 	this.direction = direction;
 	this.color = color;
 	this.x = x;
@@ -41,6 +42,6 @@ function Player(x, y, color, direction) {
 	}
 }
 
-module.exports = function(x, y, color, direction) {
-	return new Player(x, y, color, direction);
+module.exports = function(player, x, y, color, direction) {
+	return new Player(player, x, y, color, direction);
 }

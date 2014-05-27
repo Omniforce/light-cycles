@@ -109,8 +109,15 @@ io.sockets.on('connection', function(socket) {
 	updateGame = function() {
 		game.tick();
 
-		if(game.isDead(game.players[1])){ gameOver("Player 2"); return; }
-		else if(game.isDead(game.players[2])){ gameOver("Player 1"); return; }
+		if(game.playersLeft() <= 1) {
+			lastPlayer = game.lastPlayer();
+			if(lastPlayer) {
+				gameOver(lastPlayer.player);
+			} else {
+				gameOver("TIE");
+			}
+			return;
+		}
 
 		io.sockets.emit("updateGame", JSON.stringify(game.jsonifyGame()));
 	}

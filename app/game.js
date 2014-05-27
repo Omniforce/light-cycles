@@ -1,19 +1,39 @@
 function Game() {
 	this.active = false;
 	this.players = {
-		1 : require('./player')(10, 60, "blue", "right"),
-		2 : require('./player')(110, 60, "red", "left"),
-		3 : require('./player')(60, 10, "green", "down"),
-		4 : require('./player')(60, 110, "yellow", "up")
+		1 : require('./player')("Player 1", 10, 60, "blue", "right"),
+		2 : require('./player')("Player 2", 110, 60, "red", "left"),
+		3 : require('./player')("Player 3", 60, 10, "green", "down"),
+		4 : require('./player')("Player 4", 60, 110, "yellow", "up")
 	};
 	this.wall = [];
-
+	this.alivePlayers = [];
 	this.maxPlayers;
 	this.playerCount = 0;
 
 	this.tick = function() {
-		for(var i = 1; i  <= this.maxPlayers; i++) {
-			this.players[i].move(this.wall);
+		for(var i = 0; i  < this.alivePlayers.length; i++) {
+			if(this.alivePlayers[i]) {
+				this.alivePlayers[i].move(this.wall);
+
+				if(this.isDead(this.alivePlayers[i])) {
+					delete this.activePlayers[i];
+				}
+			}
+		}
+	}
+
+	this.playersLeft = function() {
+		count = 0;
+		for(var i = 0; i<this.alivePlayers.length; i++) {
+			if(this.alivePlayers[i]) { count++; }
+		}
+		return count;
+	}
+
+	this.lastPlayer = function() {
+		for(var i = 0; i<this.alivePlayers.length; i++) {
+			if(this.alivePlayers[i]) { return this.alivePlayers[i]; }
 		}
 	}
 
@@ -59,6 +79,11 @@ function Game() {
 		this.players[3].reset(60,10,'down');
 		this.players[4].reset(60,110,'up');
 		this.active = true;
+
+		this.alivePlayers = [];
+		for(var i=0; i<this.maxPlayers; i++) {
+			this.alivePlayers.push(this.players[i]);
+		}
 	}
 }
 
