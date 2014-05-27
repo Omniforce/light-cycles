@@ -26,3 +26,9 @@ socket.on('updatePointer', function(data) {
 	selection = JSON.parse(data).selection;
 	drawPointer(context, selection);
 })
+
+socket.on('waiting'){
+	drawWaiting1(context);
+	drawWaiting2(context);
+	drawWaiting3(context);
+}

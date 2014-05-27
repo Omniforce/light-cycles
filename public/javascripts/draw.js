@@ -62,3 +62,16 @@ function initialize() {
 
 	drawBoard(context);
 }
+
+function drawWaiting1(ctx){
+	initialize();
+	ctx.font = '30 Gothic'
+	ctx.fillStyle = 'white';
+	ctx.fillText('Waiting for players .', 200, 340);
+}
+function drawWaiting2(ctx){
+	ctx.fillText('.', 400, 340);
+}
+function drawWaiting3(ctx){
+	ctx.fillText('.', 410, 340);
+}

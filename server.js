@@ -53,7 +53,7 @@ io.sockets.on('connection', function(socket) {
 				}
 			}
 		} else if(state === "waiting") {
-
+			io.sockets.emit('waiting');
 		} else {
 			if(keyData.key === "r" && canReset()) {
 				game.reset();
