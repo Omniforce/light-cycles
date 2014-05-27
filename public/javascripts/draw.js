@@ -68,7 +68,7 @@ function drawWaiting(ctx){
 	drawBoard(ctx);
 	ctx.font = '30 Gothic'
 	ctx.fillStyle = 'white';
-	ctx.fillText('Waiting for players' + dots, 200, 340);
+	ctx.fillText('Waiting for players' + dots, 180, 300);
 
 	if(dots.length >= 3) { dots = "."; }
 	else { dots += "."; }
