@@ -141,6 +141,7 @@ function addPlayer(socket) {
 	console.log(socket.player)
 
 	if(game.maxPlayers == game.playerCount && !game.active) {
+		io.sockets.emit('startGame');
 		game.reset();
 		gameTimer = setInterval(updateGame, 18);
 	}
