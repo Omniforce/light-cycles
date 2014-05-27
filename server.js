@@ -33,7 +33,6 @@ io.sockets.on('connection', function(socket) {
 	});
 
 	socket.on('keyPress', function(data) {
-		// console.log(socket.player);
 
 		opposites = {
 			"up": "down",
@@ -121,7 +120,7 @@ function addPlayer(socket) {
 		game.player1.active = true;
 		socket.player = 1;
 		clients["player1"] = game.player1;
-		selectTimer = setInterval(updatePointer, 18);
+		if (state == "selecting") { selectTimer = setInterval(updatePointer, 18); }
 		game.playerCount++;
 	} else if(!clients["player2"]) {
 		game.player2.active = true;
