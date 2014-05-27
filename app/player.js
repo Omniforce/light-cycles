@@ -3,6 +3,7 @@ function Player(x, y, color, direction) {
 	this.color = color;
 	this.x = x;
 	this.y = y;
+	this.moveDist = 1;
 
 	this.reset = function(x,y,direction){
 		this.x = x;

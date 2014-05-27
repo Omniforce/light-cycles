@@ -1,28 +1,44 @@
 function Game() {
 	this.active = false;
-	this.player1 = require('./player')(10, 60, "blue", "right");
-	this.player2 = require('./player')(110, 60, "red", "left");
+	this.players = {
+		1 : require('./player')(10, 60, "blue", "right"),
+		2 : require('./player')(110, 60, "red", "left"),
+		3 : require('./player')(30, 10, "green", "down"),
+		4 : require('./player')(30, 110, "yellow", "up")
+	};
 	this.wall = [];
 
 	this.maxPlayers;
 	this.playerCount = 0;
 
 	this.tick = function() {
-		this.player1.move(this.wall);
-		this.player2.move(this.wall);
+		for(var i = 1; i  <= this.maxPlayers; i++) {
+			this.players[i].move(this.wall);
+		}
 	}
 
 	this.jsonifyGame = function() {
 		return {
+			playerCount: this.playerCount,
 			player1: {
-				x: this.player1.x,
-				y: this.player1.y,
-				color: this.player1.color
+				x: this.players[1].x,
+				y: this.players[1].y,
+				color: this.players[1].color
 			},
 			player2: {
-				x: this.player2.x,
-				y: this.player2.y,
-				color: this.player2.color
+				x: this.players[2].x,
+				y: this.players[2].y,
+				color: this.players[2].color
+			},
+			player3: {
+				x: this.players[3].x,
+				y: this.players[3].y,
+				color: this.players[3].color
+			},
+			player4: {
+				x: this.players[4].x,
+				y: this.players[4].y,
+				color: this.players[4].color
 			}
 		}
 	}
@@ -38,8 +54,10 @@ function Game() {
 
 	this.reset = function(){
 		this.wall = []
-		this.player1.reset(10,60,'right');
-		this.player2.reset(110,60,'left');
+		this.players[1].reset(10,60,'right');
+		this.players[2].reset(110,60,'left');
+		this.players[3].reset(30,10,'down');
+		this.players[4].reset(30,110,'up');
 		this.active = true;
 	}
 }

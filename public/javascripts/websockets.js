@@ -14,9 +14,17 @@ socket.on('startGame', function(event) {
 });
 
 socket.on('updateGame', function(data) {
-	players = JSON.parse(data);
-	drawPlayer(context, players.player1.x, players.player1.y, players.player1.color);
-	drawPlayer(context, players.player2.x, players.player2.y, players.player2.color);
+	var game = JSON.parse(data);
+
+	drawPlayer(context, game.player1.x, game.player1.y, game.player1.color);
+	drawPlayer(context, game.player2.x, game.player2.y, game.player2.color);
+
+	if(game.playerCount >= 3) {
+		drawPlayer(context, game.player3.x, game.player3.y, game.player3.color);
+	}
+	if(game.playerCount >= 4) {
+		drawPlayer(context, game.player4.x, game.player4.y, game.player4.color);
+	}
 });
 
 socket.on('gameOver', function(data) {
