@@ -73,9 +73,4 @@ function drawWaiting(ctx){
 	if(dots.length >= 3) { dots = "."; }
 	else { dots += "."; }
 }
-// function drawWaiting2(ctx){
-// 	ctx.fillText('.', 450, 340);
-// }
-// function drawWaiting3(ctx){
-// 	ctx.fillText('.', 460, 340);
-// }
+

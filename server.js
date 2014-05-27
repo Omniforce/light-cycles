@@ -8,6 +8,7 @@ app.use('/public', express.static(__dirname + '/public'));
 var server = http.createServer(app),
 	io = require('socket.io').listen(server);
 
+// io.set('log level', 1);
 server.listen(3000);
 
 app.get('/', function(req, res) {
@@ -28,12 +29,12 @@ var state = "selecting"; // can be "selecting", "waiting", "playing"
 
 io.sockets.on('connection', function(socket) {
 	socket.on('newPlayer', function() {
-		if(!game.player1.active || !game.player2.active) {
-			addPlayer(socket);
-		}
+		addPlayer(socket);
 	});
 
 	socket.on('keyPress', function(data) {
+		// console.log(socket.player);
+
 		opposites = {
 			"up": "down",
 			"left": "right",
@@ -75,15 +76,17 @@ io.sockets.on('connection', function(socket) {
 
 	socket.on('disconnect', function(){
 		game.active = false;
-		if (game.maxPlayers >= 2) {
-			if(socket.player === 1) { clients["player1"] = false; clearInterval(gameTimer); game.playerCount--; }
-			if(socket.player === 2) { clients["player2"] = false; clearInterval(gameTimer); playerCount--;}
-		}
-		if (game.maxPlayers >= 3) {
-			if(socket.player === 3) { clients["player3"] = false; clearInterval(gameTimer); playerCount--;}
-		}
-		if (game.maxPlayers >= 4) {
-			if(socket.player === 4) { clients["player4"] = false; clearInterval(gameTimer); playerCount--;}
+
+		var maxPlayers = game.maxPlayers || 4;
+
+		console.log(maxPlayers);
+
+		for(var i = 1; i <= maxPlayers; i++) {
+			if(socket.player === i) {
+				clients["player"+i] = false;
+				clearInterval(gameTimer);
+				game.playerCount--;
+			}
 		}
 	});
 
@@ -134,6 +137,8 @@ function addPlayer(socket) {
 		clients["player4"] = game.player4;
 		game.playerCount++;
 	}
+
+	console.log(socket.player)
 
 	if(game.maxPlayers == game.playerCount && !game.active) {
 		game.reset();
