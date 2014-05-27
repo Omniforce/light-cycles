@@ -48,9 +48,16 @@ io.sockets.on('connection', function(socket) {
 			if (socket.player === 1) {
 				if(keyData.key === "enter") {
 					game.maxPlayers = pointer.selection;
-					state = "waiting";
 					clearInterval(selectTimer);
-					io.sockets.emit('waiting');
+					if(game.playerCount >= game.maxPlayers){
+						state = 'playing';
+						io.sockets.emit('startGame');
+						game.reset();
+						gameTimer = setInterval(updateGame, 18);
+					}else{
+						state = "waiting";
+						io.sockets.emit('waiting');
+					}	
 				} else {
 					pointer.move(keyData.key);
 				}
