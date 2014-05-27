@@ -44,9 +44,12 @@ function drawSelectScreen(ctx) {
 }
 
 function drawPointer(ctx, selection) {
-	y = 340 + (selection * 30);
+	drawBoard(ctx);
+	drawSelectScreen(ctx);
+
+	y = 280 + (selection * 30);
 	ctx.beginPath();
-    ctx.moveTo(230, y-5);
+    ctx.moveTo(240, y-5);
     ctx.lineTo(230, y-15);
     ctx.lineTo(230, y+5);
     ctx.fillStyle = 'white';

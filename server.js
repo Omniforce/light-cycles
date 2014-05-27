@@ -70,8 +70,16 @@ io.sockets.on('connection', function(socket) {
 
 	socket.on('disconnect', function(){
 		game.active = false;
-		if(socket.player === 1) { client["player1"] = false; clearInterval(gameTimer); }
-		else if(socket.player === 2) { client["player2"] = false; clearInterval(gameTimer); }
+		if (game.maxPlayers >= 2) ;
+			if(socket.player === 1) { clients["player1"] = false; clearInterval(gameTimer); game.playerCount--; }
+			if(socket.player === 2) { clients["player2"] = false; clearInterval(gameTimer); playerCount--;}
+		}
+		if (game.maxPlayers >= 3) {
+			if(socket.player === 3) { clients["player3"] = false; clearInterval(gameTimer); playerCount--;}
+		}
+		if (game.maxPlayers >= 4) {
+			if(socket.player === 4) { clients["player4"] = false; clearInterval(gameTimer); playerCount--;}
+		}
 	});
 
 	gameOver = function(winningPlayer) {
