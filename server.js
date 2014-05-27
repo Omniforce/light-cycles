@@ -70,7 +70,7 @@ io.sockets.on('connection', function(socket) {
 
 	socket.on('disconnect', function(){
 		game.active = false;
-		if (game.maxPlayers >= 2) ;
+		if (game.maxPlayers >= 2) {
 			if(socket.player === 1) { clients["player1"] = false; clearInterval(gameTimer); game.playerCount--; }
 			if(socket.player === 2) { clients["player2"] = false; clearInterval(gameTimer); playerCount--;}
 		}
