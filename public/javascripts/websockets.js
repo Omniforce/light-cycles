@@ -1,4 +1,4 @@
-var socket = io.connect('http://mabosbross-m2:3000');
+var socket = io.connect('http://mabosltrowel-m4:3000');
 var gameOver = false;
 var waitingTimer;
 

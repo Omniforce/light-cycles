@@ -3,8 +3,8 @@ function Game() {
 	this.players = {
 		1 : require('./player')(10, 60, "blue", "right"),
 		2 : require('./player')(110, 60, "red", "left"),
-		3 : require('./player')(30, 10, "green", "down"),
-		4 : require('./player')(30, 110, "yellow", "up")
+		3 : require('./player')(60, 10, "green", "down"),
+		4 : require('./player')(60, 110, "yellow", "up")
 	};
 	this.wall = [];
 
@@ -56,8 +56,8 @@ function Game() {
 		this.wall = []
 		this.players[1].reset(10,60,'right');
 		this.players[2].reset(110,60,'left');
-		this.players[3].reset(30,10,'down');
-		this.players[4].reset(30,110,'up');
+		this.players[3].reset(60,10,'down');
+		this.players[4].reset(60,110,'up');
 		this.active = true;
 	}
 }

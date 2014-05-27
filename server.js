@@ -77,6 +77,14 @@ io.sockets.on('connection', function(socket) {
 				if(opposites[keyData.key] != game.players[2].direction)
 					game.players[2].direction = keyData.key;
 			}
+			else if(socket.player === 3) {
+				if(opposites[keyData.key] != game.players[3].direction)
+					game.players[3].direction = keyData.key;
+			}
+			else if(socket.player === 4) {
+				if(opposites[keyData.key] != game.players[4].direction)
+					game.players[4].direction = keyData.key;
+			}
 		}
 	});
 
