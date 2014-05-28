@@ -154,10 +154,17 @@ function addPlayer(socket) {
 		clients["player4"] = game.players[4];
 		game.playerCount++;
 	}
+
+	if(state == "waiting") {
+		socket.emit('waiting');
+	} else if(state == "playing") {
+		socket.emit('reset');
+	}
 	
 	if(game.maxPlayers == game.playerCount && !game.active) {
-		io.sockets.emit('startGame');
+		io.sockets.emit('startGame', JSON.stringify(game.jsonifyGame()));
 		state = 'playing';
+		reset();
 		game.reset();
 		gameTimer = setInterval(updateGame, tickFrequency);
 	}

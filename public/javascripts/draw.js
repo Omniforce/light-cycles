@@ -10,6 +10,18 @@ function drawBoard(ctx) {
 	ctx.fillRect(0, 0, width, height);
 }
 
+function drawPlayers(ctx, game) {
+	drawPlayer(ctx, game.player1.x, game.player1.y, game.player1.color);
+	drawPlayer(ctx, game.player2.x, game.player2.y, game.player2.color);
+
+	if(game.player3.alive >= 3) {
+		drawPlayer(ctx, game.player3.x, game.player3.y, game.player3.color);
+	}
+	if(game.player3.alive >= 4) {
+		drawPlayer(ctx, game.player4.x, game.player4.y, game.player4.color);
+	}
+}
+
 function drawPlayer(ctx, gridx, gridy, color) {
 	var x = gridx * cellSize;
 	var y = gridy * cellSize;
@@ -65,6 +77,8 @@ function initialize() {
 }
 
 function drawWaiting(ctx){
+	console.log("WAITING");
+
 	drawBoard(ctx);
 	ctx.font = '30 Gothic'
 	ctx.fillStyle = 'white';
