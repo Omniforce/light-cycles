@@ -17,6 +17,7 @@ function Game() {
 				this.alivePlayers[i].move(this.wall);
 
 				if(this.isDead(this.alivePlayers[i])) {
+					console.log(i);
 					delete this.activePlayers[i];
 				}
 			}
@@ -81,7 +82,7 @@ function Game() {
 		this.active = true;
 
 		this.alivePlayers = [];
-		for(var i=0; i<this.maxPlayers; i++) {
+		for(var i=1; i<=this.maxPlayers; i++) {
 			this.alivePlayers.push(this.players[i]);
 		}
 	}
