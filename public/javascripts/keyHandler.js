@@ -21,6 +21,9 @@ $(function(){
 		else if(event.keyCode === 13) {
 			keyData = { key: 'enter' };
 		}
+		else if(event.keyCode === 66){
+			keyData = {key:'b'};
+		}
 		else{
 			return;
 		}

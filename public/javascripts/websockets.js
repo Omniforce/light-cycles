@@ -9,12 +9,11 @@ socket.on('connect', function() {
 });
 
 socket.on('startGame', function(data) {
-	var game = JSON.parse(data);
+	clearInterval(waitingTimer);
 
+	var game = JSON.parse(data);
 	drawBoard(context);
 	drawPlayers(context, game);
-
-	clearInterval(waitingTimer);
 });
 
 socket.on('updateGame', function(data) {
