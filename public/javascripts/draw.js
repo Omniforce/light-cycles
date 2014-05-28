@@ -40,6 +40,8 @@ function drawGameOver(ctx, winningPlayer) {
 
     ctx.font = '15pt Gothic';
     ctx.fillText("Press r to restart", 235, 330);
+
+    ctx.fillText("Press b to return to the menu", 190, 350)
 }
 
 function drawSelectScreen(ctx) {

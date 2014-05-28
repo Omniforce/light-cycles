@@ -8,7 +8,6 @@ app.use('/public', express.static(__dirname + '/public'));
 var server = http.createServer(app),
 	io = require('socket.io').listen(server);
 
-io.set('log level', 1);
 server.listen(3000);
 
 app.get('/', function(req, res) {
@@ -66,7 +65,7 @@ io.sockets.on('connection', function(socket) {
 				reset();
 				gameTimer = setInterval(updateGame, tickFrequency);
 			}
-			if(socket.player === 1 && keyData.key === "b" && canReset()) {
+			if(keyData.key === "b" && canReset()) {
 				state = 'selecting';
 				reset();
 				selectTimer = selectTimer = setInterval(updatePointer, 100);
