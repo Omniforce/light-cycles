@@ -17,8 +17,7 @@ function Game() {
 				this.alivePlayers[i].move(this.wall);
 
 				if(this.isDead(this.alivePlayers[i])) {
-					console.log(i);
-					delete this.activePlayers[i];
+					delete this.alivePlayers[i];
 				}
 			}
 		}
