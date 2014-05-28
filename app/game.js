@@ -19,13 +19,25 @@ function Game() {
 
 				touchingPlayers = this.playersTouching(this.alivePlayers[i]);
 				if(touchingPlayers.length > 0) {
+					for(var j=0;j<this.wall.length;j++){
+						if(this.alivePlayers[i].color == this.wall[j].color)
+							delete this.wall[j];
+					}
 					delete this.alivePlayers[i];
-					for(i=0;i<touchingPlayers.length;i++) {
-						var index = this.alivePlayers.indexOf(touchingPlayers[i]);
+					for(var j=0;j<touchingPlayers.length;j++) {
+						var index = this.alivePlayers.indexOf(touchingPlayers[j]);
+						for (var k = 0; k < this.wall.length; k++) {
+							if(this.alivePlayers[index].color == this.wall[k].color)
+								delete this.wall[k];
+						};
 						delete this.alivePlayers[index];
 					}
 				}
 				else if(this.isDead(this.alivePlayers[i])) {
+					for (var j = 0; j < this.wall.length; j++) {
+						if(this.wall[j].color == this.alivePlayers[i].color)
+							delete this.wall[j];
+					};
 					delete this.alivePlayers[i];
 				}
 			}
@@ -72,7 +84,8 @@ function Game() {
 				y: this.players[4].y,
 				color: this.players[4].color,
 				alive: this.alivePlayers.indexOf(this.players[4]) != -1
-			}
+			},
+			wall: this.wall
 		}
 	}
 

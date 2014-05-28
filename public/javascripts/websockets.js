@@ -1,4 +1,4 @@
-var socket = io.connect('http://mabosbross-m2:3000');
+var socket = io.connect('http://mabosltrowel-m4:3000');
 var gameOver = false;
 var waitingTimer;
 
@@ -13,6 +13,7 @@ socket.on('startGame', function(data) {
 
 	drawBoard(context);
 	drawPlayers(context, game);
+	drawWalls(context,game);
 
 	clearInterval(waitingTimer);
 });
@@ -20,7 +21,9 @@ socket.on('startGame', function(data) {
 socket.on('updateGame', function(data) {
 	var game = JSON.parse(data);
 
+	drawBoard(context);
 	drawPlayers(context, game);
+	drawWalls(context,game);
 
 });
 

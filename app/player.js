@@ -13,7 +13,7 @@ function Player(player, x, y, color, direction) {
 	}
 
 	this.move = function(wall) {
-		wall.push({ x: this.x, y: this.y });
+		wall.push({ x: this.x, y: this.y, color: this.color });
 
 		switch(this.direction) {
 		case "up":

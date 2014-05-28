@@ -89,3 +89,12 @@ function drawWaiting(ctx){
 	else { dots += "."; }
 }
 
+function drawWalls(ctx, game){
+	for(i=0;i<game.wall.length;i++){
+		x = game.wall[i].x * cellSize;
+		y = game.wall[i].y * cellSize;
+		ctx.fillStyle = game.wall[i].color;
+		ctx.fillRect(x, y, cellSize, cellSize);
+	}
+}
+
