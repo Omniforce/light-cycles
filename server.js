@@ -50,10 +50,7 @@ io.sockets.on('connection', function(socket) {
 					game.maxPlayers = pointer.selection;
 					clearInterval(selectTimer);
 					if(game.playerCount >= game.maxPlayers){
-						state = 'playing';
-						io.sockets.emit('startGame', JSON.stringify(game.jsonifyGame()));
-						game.reset();
-						gameTimer = setInterval(updateGame, tickFrequency);
+						startGame();
 					} else{
 						state = "waiting";
 						io.sockets.emit('waiting');
@@ -68,6 +65,11 @@ io.sockets.on('connection', function(socket) {
 				game.reset();
 				reset();
 				gameTimer = setInterval(updateGame, tickFrequency);
+			}
+			if(socket.player === 1 && keyData.key === "b" && canReset()) {
+				state = 'selecting';
+				reset();
+				selectTimer = selectTimer = setInterval(updatePointer, 100);
 			}
 			if(keyData.key == "up" || keyData.key == "down" || keyData.key == "left" || keyData.key == "right"){
 				if(socket.player === 1) {
@@ -138,7 +140,7 @@ function addPlayer(socket) {
 		game.players[1].active = true;
 		socket.player = 1;
 		clients["player1"] = game.players[1];
-		if (state == "selecting") { selectTimer = setInterval(updatePointer, 18); }
+		if (state == "selecting") { selectTimer = setInterval(updatePointer, 100); }
 		game.playerCount++;
 	} else if(!clients["player2"]) {
 		game.players[2].active = true;
@@ -164,12 +166,16 @@ function addPlayer(socket) {
 	}
 	
 	if(game.maxPlayers == game.playerCount && !game.active) {
-		io.sockets.emit('startGame', JSON.stringify(game.jsonifyGame()));
-		state = 'playing';
-		reset();
-		game.reset();
-		gameTimer = setInterval(updateGame, tickFrequency);
+		startGame();
 	}
+}
+
+function startGame() {
+	io.sockets.emit('startGame', JSON.stringify(game.jsonifyGame()));
+	state = 'playing'
+	reset();
+	game.reset();
+	gameTimer = setInterval(updateGame, tickFrequency);
 }
 
 function canReset() {

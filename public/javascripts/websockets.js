@@ -9,8 +9,9 @@ socket.on('connect', function() {
 });
 
 socket.on('startGame', function(data) {
-	var game = JSON.parse(data);
+	clearInterval(waitingTimer);
 
+	var game = JSON.parse(data);
 	drawBoard(context);
 	drawPlayers(context, game);
 	drawWalls(context,game);
