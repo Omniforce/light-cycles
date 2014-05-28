@@ -1,4 +1,4 @@
-var socket = io.connect('http://mabosbross-m2:3000');
+var socket = io.connect('http://mabosltrowel-m4:3000');
 var gameOver = false;
 var waitingTimer;
 
@@ -8,8 +8,20 @@ socket.on('connect', function() {
 	drawSelectScreen(context);
 });
 
-socket.on('startGame', function(event) {
+socket.on('startGame', function(data) {
+	var game = JSON.parse(data);
+
 	drawBoard(context);
+
+	drawPlayer(context, game.player1.x, game.player1.y, game.player1.color);
+	drawPlayer(context, game.player2.x, game.player2.y, game.player2.color);
+
+	if(game.playerCount >= 3) {
+		drawPlayer(context, game.player3.x, game.player3.y, game.player3.color);
+	}
+	if(game.playerCount >= 4) {
+		drawPlayer(context, game.player4.x, game.player4.y, game.player4.color);
+	}
 	clearInterval(waitingTimer);
 });
 

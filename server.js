@@ -51,7 +51,7 @@ io.sockets.on('connection', function(socket) {
 					clearInterval(selectTimer);
 					if(game.playerCount >= game.maxPlayers){
 						state = 'playing';
-						io.sockets.emit('startGame');
+						io.sockets.emit('startGame', JSON.stringify(game.jsonifyGame()));
 						game.reset();
 						gameTimer = setInterval(updateGame, tickFrequency);
 					} else{
