@@ -14,10 +14,11 @@ function drawPlayers(ctx, game) {
 	drawPlayer(ctx, game.player1.x, game.player1.y, game.player1.color);
 	drawPlayer(ctx, game.player2.x, game.player2.y, game.player2.color);
 
-	if(game.player3.alive >= 3) {
+	if(game.player3.alive) {
+		console.log("HELLO");
 		drawPlayer(ctx, game.player3.x, game.player3.y, game.player3.color);
 	}
-	if(game.player3.alive >= 4) {
+	if(game.player4.alive) {
 		drawPlayer(ctx, game.player4.x, game.player4.y, game.player4.color);
 	}
 }
