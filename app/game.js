@@ -52,22 +52,26 @@ function Game() {
 			player1: {
 				x: this.players[1].x,
 				y: this.players[1].y,
-				color: this.players[1].color
+				color: this.players[1].color,
+				alive: this.alivePlayers.indexOf(this.players[1]) != -1
 			},
 			player2: {
 				x: this.players[2].x,
 				y: this.players[2].y,
-				color: this.players[2].color
+				color: this.players[2].color,
+				alive: this.alivePlayers.indexOf(this.players[2]) != -1
 			},
 			player3: {
 				x: this.players[3].x,
 				y: this.players[3].y,
-				color: this.players[3].color
+				color: this.players[3].color,
+				alive: this.alivePlayers.indexOf(this.players[3]) != -1
 			},
 			player4: {
 				x: this.players[4].x,
 				y: this.players[4].y,
-				color: this.players[4].color
+				color: this.players[4].color,
+				alive: this.alivePlayers.indexOf(this.players[4]) != -1
 			}
 		}
 	}
