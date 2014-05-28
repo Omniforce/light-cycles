@@ -69,21 +69,23 @@ io.sockets.on('connection', function(socket) {
 				reset();
 				gameTimer = setInterval(updateGame, tickFrequency);
 			}
-			else if(socket.player === 1) {
-				if(opposites[keyData.key] != game.players[1].direction)
-					game.players[1].direction = keyData.key;
-			}
-			else if(socket.player === 2) {
-				if(opposites[keyData.key] != game.players[2].direction)
-					game.players[2].direction = keyData.key;
-			}
-			else if(socket.player === 3) {
-				if(opposites[keyData.key] != game.players[3].direction)
-					game.players[3].direction = keyData.key;
-			}
-			else if(socket.player === 4) {
-				if(opposites[keyData.key] != game.players[4].direction)
-					game.players[4].direction = keyData.key;
+			if(keyData.key == "up" || keyData.key == "down" || keyData.key == "left" || keyData.key == "right"){
+				if(socket.player === 1) {
+					if(opposites[keyData.key] != game.players[1].direction)
+						game.players[1].direction = keyData.key;
+				}
+				else if(socket.player === 2) {
+					if(opposites[keyData.key] != game.players[2].direction)
+						game.players[2].direction = keyData.key;
+				}
+				else if(socket.player === 3) {
+					if(opposites[keyData.key] != game.players[3].direction)
+						game.players[3].direction = keyData.key;
+				}
+				else if(socket.player === 4) {
+					if(opposites[keyData.key] != game.players[4].direction)
+						game.players[4].direction = keyData.key;
+				}
 			}
 		}
 	});
