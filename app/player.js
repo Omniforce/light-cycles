@@ -30,6 +30,11 @@ function Player(player, x, y, color, direction) {
 		}
 	}
 
+	this.isTouchingPlayer = function(player) {
+		return this.x == player.x &&
+				this.y == player.y;
+	}
+
 	this.isTouchingWall = function(wall) {
 		var x = this.x;
 		var y = this.y;

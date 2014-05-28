@@ -12,11 +12,20 @@ function Game() {
 	this.playerCount = 0;
 
 	this.tick = function() {
+		var touchingPlayers;
 		for(var i = 0; i  < this.alivePlayers.length; i++) {
 			if(this.alivePlayers[i]) {
 				this.alivePlayers[i].move(this.wall);
 
-				if(this.isDead(this.alivePlayers[i])) {
+				touchingPlayers = this.playersTouching(this.alivePlayers[i]);
+				if(touchingPlayers.length > 0) {
+					delete this.alivePlayers[i];
+					for(i=0;i<touchingPlayers.length;i++) {
+						var index = this.alivePlayers.indexOf(touchingPlayers[i]);
+						delete this.alivePlayers[index];
+					}
+				}
+				else if(this.isDead(this.alivePlayers[i])) {
 					delete this.alivePlayers[i];
 				}
 			}
@@ -63,13 +72,23 @@ function Game() {
 		}
 	}
 
+	this.playersTouching = function(player) {
+		var playersTouching = [];
+		for(var i=0; i<this.alivePlayers.length; i++) {
+			if(this.alivePlayers[i] && player.isTouchingPlayer(this.alivePlayers[i]) && player !== this.alivePlayers[i]) {
+				playersTouching.push(this.alivePlayers[i]);
+			}
+		}
+		return playersTouching;
+	}
+
 	this.isTouchingBorder = function(player) {
 		return player.x > 119 || player.x < 0 || player.y > 119 || player.y < 0;
 	}
 
 	this.isDead = function(player) {
 		return this.isTouchingBorder(player) ||
-			player.isTouchingWall(this.wall);
+			player.isTouchingWall(this.wall)
 	}
 
 	this.reset = function(){
