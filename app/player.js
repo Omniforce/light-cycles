@@ -1,6 +1,7 @@
 function Player(player, x, y, color, direction) {
 	this.player = player;
 	this.direction = direction;
+	this.previousDirection = "";
 	this.color = color;
 	this.x = x;
 	this.y = y;
@@ -14,6 +15,7 @@ function Player(player, x, y, color, direction) {
 
 	this.move = function(wall) {
 		wall.push({ x: this.x, y: this.y, color: this.color });
+		this.previousDirection = this.direction;
 
 		switch(this.direction) {
 		case "up":
