@@ -32,6 +32,7 @@ function Game() {
 						};
 						delete this.alivePlayers[index];
 					}
+					return this.wall;
 				}
 				else if(this.isDead(this.alivePlayers[i])) {
 					for (var j = 0; j < this.wall.length; j++) {
@@ -39,6 +40,7 @@ function Game() {
 							delete this.wall[j];
 					};
 					delete this.alivePlayers[i];
+					return this.wall;
 				}
 			}
 		}

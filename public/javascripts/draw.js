@@ -15,7 +15,6 @@ function drawPlayers(ctx, game) {
 	drawPlayer(ctx, game.player2.x, game.player2.y, game.player2.color);
 
 	if(game.player3.alive) {
-		console.log("HELLO");
 		drawPlayer(ctx, game.player3.x, game.player3.y, game.player3.color);
 	}
 	if(game.player4.alive) {
@@ -80,8 +79,6 @@ function initialize() {
 }
 
 function drawWaiting(ctx){
-	console.log("WAITING");
-
 	drawBoard(ctx);
 	ctx.font = '30 Gothic'
 	ctx.fillStyle = 'white';
@@ -91,12 +88,15 @@ function drawWaiting(ctx){
 	else { dots += "."; }
 }
 
-function drawWalls(ctx, game){
-	for(i=0;i<game.wall.length;i++){
-		x = game.wall[i].x * cellSize;
-		y = game.wall[i].y * cellSize;
-		ctx.fillStyle = game.wall[i].color;
-		ctx.fillRect(x, y, cellSize, cellSize);
+function drawWalls(ctx, walls){
+	console.log(walls);
+	for(i=0;i<walls.length;i++){
+		if(walls[i]) {
+			x = walls[i].x * cellSize;
+			y = walls[i].y * cellSize;
+			ctx.fillStyle = walls[i].color;
+			ctx.fillRect(x, y, cellSize, cellSize);
+		}
 	}
 }
 

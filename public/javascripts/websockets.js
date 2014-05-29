@@ -41,3 +41,9 @@ socket.on('updatePointer', function(data) {
 socket.on('waiting',function(){
 	waitingTimer = setInterval(function() { drawWaiting(context) }, 1000);
 });
+
+socket.on("death", function(data) {
+	var walls = data;
+	drawBoard(context);
+	drawWalls(context, walls);
+});

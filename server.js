@@ -110,9 +110,14 @@ io.sockets.on('connection', function(socket) {
 	}
 
 	updateGame = function() {
-		game.tick();
+		var walls = game.tick();
+		var playersLeft = game.playersLeft();
 
-		if(game.playersLeft() <= 1) {
+		if(walls && playersLeft > 1) {
+			io.sockets.emit("death", walls);
+		}
+
+		if(playersLeft <= 1) {
 			lastPlayer = game.lastPlayer();
 			if(lastPlayer) {
 				gameOver(lastPlayer.player);
