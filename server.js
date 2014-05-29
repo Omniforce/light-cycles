@@ -61,9 +61,7 @@ io.sockets.on('connection', function(socket) {
 		} else if(state === "waiting") {
 		} else {
 			if(keyData.key === "r" && canReset()) {
-				game.reset();
-				reset();
-				gameTimer = setInterval(updateGame, tickFrequency);
+				startGame();
 			}
 			if(keyData.key === "b" && canReset()) {
 				state = 'selecting';
@@ -175,10 +173,9 @@ function addPlayer(socket) {
 }
 
 function startGame() {
+	game.reset();
 	io.sockets.emit('startGame', JSON.stringify(game.jsonifyGame()));
 	state = 'playing'
-	reset();
-	game.reset();
 	gameTimer = setInterval(updateGame, tickFrequency);
 }
 

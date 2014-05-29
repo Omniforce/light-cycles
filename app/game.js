@@ -110,7 +110,7 @@ function Game() {
 	}
 
 	this.reset = function(){
-		this.wall = []
+		this.wall = [];
 		this.players[1].reset(10,60,'right');
 		this.players[2].reset(110,60,'left');
 		this.players[3].reset(60,10,'down');
