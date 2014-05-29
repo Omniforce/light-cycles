@@ -11,9 +11,12 @@ function drawBoard(ctx) {
 }
 
 function drawPlayers(ctx, game) {
-	drawPlayer(ctx, game.player1.x, game.player1.y, game.player1.color);
-	drawPlayer(ctx, game.player2.x, game.player2.y, game.player2.color);
-
+	if(game.player1.alive){
+		drawPlayer(ctx, game.player1.x, game.player1.y, game.player1.color);
+	}
+	if(game.player2.alive){
+		drawPlayer(ctx, game.player2.x, game.player2.y, game.player2.color);
+	}
 	if(game.player3.alive) {
 		drawPlayer(ctx, game.player3.x, game.player3.y, game.player3.color);
 	}
