@@ -37,8 +37,12 @@ function drawGameOver(ctx, winningPlayer) {
     ctx.fillStyle = 'white';
     ctx.fillText("GAME OVER", 105, 250);
 
-    ctx.font = '30pt Gothic';
-    ctx.fillText(winningPlayer + " wins!", 190, 300);
+   	ctx.font = '30pt Gothic';
+    if(winningPlayer) {
+	    ctx.fillText(winningPlayer + " wins!", 190, 300);
+	} else {
+		ctx.fillText("It's a tie!", 230, 300);
+	}
 
     ctx.font = '15pt Gothic';
     ctx.fillText("Press r to restart", 235, 330);

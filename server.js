@@ -107,6 +107,12 @@ io.sockets.on('connection', function(socket) {
 		io.sockets.emit("gameOver", winningPlayer);
 	}
 
+	tieGame = function() {
+		game.active = false;
+		clearInterval(gameTimer);
+		io.sockets.emit("tie");
+	}
+
 	updateGame = function() {
 		var walls = game.tick();
 		var playersLeft = game.playersLeft();
@@ -120,7 +126,7 @@ io.sockets.on('connection', function(socket) {
 			if(lastPlayer) {
 				gameOver(lastPlayer.player);
 			} else {
-				gameOver("TIE");
+				tieGame();
 			}
 			return;
 		}
