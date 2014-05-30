@@ -32,7 +32,7 @@ function drawPlayer(ctx, gridx, gridy, color) {
 	ctx.fillRect(x, y, cellSize, cellSize);
 }
 
-function drawGameOver(ctx, winningPlayer) {
+function drawGameOver(ctx, currentPlayer, winningPlayer) {
 	ctx.font = '50pt Gothic';
     ctx.fillStyle = 'white';
     ctx.fillText("GAME OVER", 105, 250);
@@ -47,7 +47,9 @@ function drawGameOver(ctx, winningPlayer) {
     ctx.font = '15pt Gothic';
     ctx.fillText("Press r to restart", 235, 330);
 
-    ctx.fillText("Press b to return to the menu", 190, 350)
+    if(currentPlayer === 1) {
+    	ctx.fillText("Press b to return to the menu", 190, 350)
+    }
 }
 
 function drawSelectScreen(ctx) {

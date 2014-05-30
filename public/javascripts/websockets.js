@@ -23,7 +23,9 @@ socket.on('updateGame', function(data) {
 });
 
 socket.on('gameOver', function(data) {
-	drawGameOver(context, data);
+	players = JSON.parse(data);
+
+	drawGameOver(context, players.currentPlayer, players.winningPlayer);
 	gameOver = false;
 });
 

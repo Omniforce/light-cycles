@@ -63,7 +63,7 @@ io.sockets.on('connection', function(socket) {
 			if(keyData.key === "r" && canReset()) {
 				startGame();
 			}
-			if(keyData.key === "b" && canReset()) {
+			if(socket.player === 1 && keyData.key === "b" && canReset()) {
 				state = 'selecting';
 				reset();
 				selectTimer = selectTimer = setInterval(updatePointer, 100);
@@ -101,16 +101,15 @@ io.sockets.on('connection', function(socket) {
 		}
 	});
 
-	gameOver = function(winningPlayer) {
+	gameOver = function(socket, currentPlayer, winningPlayer) {
 		game.active = false;
 		clearInterval(gameTimer); 
-		io.sockets.emit("gameOver", winningPlayer);
-	}
 
-	tieGame = function() {
-		game.active = false;
-		clearInterval(gameTimer);
-		io.sockets.emit("tie");
+		var json = {
+			currentPlayer: currentPlayer,
+			winningPlayer: winningPlayer
+		};
+		socket.emit("gameOver", JSON.stringify(json));
 	}
 
 	updateGame = function() {
@@ -122,12 +121,20 @@ io.sockets.on('connection', function(socket) {
 		}
 
 		if(playersLeft <= 1) {
-			lastPlayer = game.lastPlayer();
-			if(lastPlayer) {
-				gameOver(lastPlayer.player);
-			} else {
-				tieGame();
-			}
+			var lastPlayer = game.lastPlayer();
+			var users = io.sockets.connected;
+
+			Object.keys(users).forEach(function (key) { 
+				var socket = users[key]
+			 	var currentPlayer = socket.player;
+				lastPlayer ? gameOver(socket, currentPlayer, lastPlayer.player) : gameOver(socket, currentPlayer);
+			})
+
+			// io.sockets.connected.forEach(function (socket) {
+			// 	var currentPlayer = socket.player;
+			// 	lastPlayer ? gameOver(currentPlayer, lastPlayer.player) : gameOver(currentPlayer);
+			// });
+
 			return;
 		}
 
