@@ -16,9 +16,12 @@ app.get('/', function(req, res) {
 
 var game = require('./app/game.js');
 var pointer = require('./app/pointer.js');
-var selectTimer;
-var gameTimer;
+
 var tickFrequency = 18;
+var selectTimer;
+var selectTimerRunning = false;
+var gameTimer;
+
 var clients = {
 	"player1": false,
 	"player2": false,
@@ -48,6 +51,7 @@ io.sockets.on('connection', function(socket) {
 				if(keyData.key === "enter") {
 					game.maxPlayers = pointer.selection;
 					clearInterval(selectTimer);
+					selectTimerRunning = false;
 					if(game.playerCount >= game.maxPlayers){
 						startGame();
 					} else{
@@ -66,7 +70,8 @@ io.sockets.on('connection', function(socket) {
 			if(socket.player === 1 && keyData.key === "b" && canReset()) {
 				state = 'selecting';
 				reset();
-				selectTimer = selectTimer = setInterval(updatePointer, 100);
+				selectTimer = setInterval(updatePointer, 100);
+				selectTimerRunning = true;
 			}
 			if(keyData.key == "up" || keyData.key == "down" || keyData.key == "left" || keyData.key == "right"){
 				if(socket.player === 1) {
@@ -99,6 +104,14 @@ io.sockets.on('connection', function(socket) {
 				game.playerCount--;
 			}
 		}
+
+		if(noPlayers()) {
+			clearInterval(selectTimer);
+			selectTimerRunning = false;
+			clearInterval(gameTimer);
+			state = 'selecting';
+			reset();
+		}
 	});
 
 	gameOver = function(socket, currentPlayer, winningPlayer) {
@@ -128,12 +141,7 @@ io.sockets.on('connection', function(socket) {
 				var socket = users[key]
 			 	var currentPlayer = socket.player;
 				lastPlayer ? gameOver(socket, currentPlayer, lastPlayer.player) : gameOver(socket, currentPlayer);
-			})
-
-			// io.sockets.connected.forEach(function (socket) {
-			// 	var currentPlayer = socket.player;
-			// 	lastPlayer ? gameOver(currentPlayer, lastPlayer.player) : gameOver(currentPlayer);
-			// });
+			});
 
 			return;
 		}
@@ -147,6 +155,7 @@ io.sockets.on('connection', function(socket) {
 
 	updatePointer = function() {
 		io.sockets.emit("updatePointer", JSON.stringify({ selection: pointer.selection }));
+		console.log(state);
 	}
 });
 
@@ -155,7 +164,7 @@ function addPlayer(socket) {
 		game.players[1].active = true;
 		socket.player = 1;
 		clients["player1"] = game.players[1];
-		if (state == "selecting") { selectTimer = setInterval(updatePointer, 100); }
+		if (state == "selecting" && !selectTimerRunning) { selectTimer = setInterval(updatePointer, 100); selectTimerRunning = true; }
 		game.playerCount++;
 	} else if(!clients["player2"]) {
 		game.players[2].active = true;
@@ -196,4 +205,8 @@ function canReset() {
 	return game.players[1].active 
 		&& game.players[2].active 
 		&& !game.active;
+}
+
+function noPlayers() {
+	return !(clients["player1"] || clients["player2"] || clients["player3"] || clients["player4"]);
 }
