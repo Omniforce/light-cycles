@@ -32,6 +32,24 @@ io.sockets.on('connection', function(socket) {
 		addPlayer(socket);
 	});
 
+	socket.on('nameChange',function(data){
+
+		user_name = JSON.parse(data);
+
+		if(socket.player === 1) {
+			game.players[1].player = user_name.new_name;
+		}
+		else if(socket.player === 2) {
+			game.players[2].player = user_name.new_name;
+		}
+		else if(socket.player === 3) {
+			game.players[3].player = user_name.new_name;
+		}
+		else if(socket.player === 4) {
+			game.players[4].player = user_name.new_name;
+		}
+	});
+
 	socket.on('keyPress', function(data) {
 
 		opposites = {
