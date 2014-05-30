@@ -35,6 +35,7 @@ socket.on('tie', function(data) {
 });
 
 socket.on('reset', function() {
+	clearInterval(waitingTimer);
 	drawBoard(context);
 });
 
