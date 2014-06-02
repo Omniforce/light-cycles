@@ -1,4 +1,4 @@
-var socket = io.connect('http://mabosltrowel-m4:3000');
+var socket = io.connect('http://mabosbross-m2:3000');
 var gameOver = false;
 var waitingTimer;
 
@@ -52,4 +52,8 @@ socket.on("death", function(data) {
 	var walls = data;
 	drawBoard(context);
 	drawWalls(context, walls);
+});
+
+socket.on("setColor", function(data) {
+	$('#colorPicker').spectrum("set", data);
 });

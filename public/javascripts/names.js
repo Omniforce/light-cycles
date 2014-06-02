@@ -7,4 +7,11 @@ $(function(){
 		user_name = { new_name: $('#user_name').val() };
 		socket.emit('nameChange', JSON.stringify(user_name));
 	})
+
+	$("#colorPicker").spectrum({
+		clickoutFiresChange: true,
+		change: function(color) {
+		    socket.emit("setColor", color.toHexString());
+		}
+	});
 })

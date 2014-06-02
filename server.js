@@ -53,6 +53,13 @@ io.sockets.on('connection', function(socket) {
 		}
 	});
 
+	socket.on("setColor", function(data) {
+		player = game.players[socket.player];
+		if(player) {
+			player.color = data;
+		}
+	});
+
 	socket.on('keyPress', function(data) {
 
 		opposites = {
@@ -173,7 +180,6 @@ io.sockets.on('connection', function(socket) {
 
 	updatePointer = function() {
 		io.sockets.emit("updatePointer", JSON.stringify({ selection: pointer.selection }));
-		console.log(state);
 	}
 });
 
@@ -184,21 +190,25 @@ function addPlayer(socket) {
 		clients["player1"] = game.players[1];
 		if (state == "selecting" && !selectTimerRunning) { selectTimer = setInterval(updatePointer, 100); selectTimerRunning = true; }
 		game.playerCount++;
+		socket.emit("setColor", clients["player1"].color);
 	} else if(!clients["player2"]) {
 		game.players[2].active = true;
 		socket.player = 2;
 		clients["player2"] = game.players[2];
 		game.playerCount++;
+		socket.emit("setColor", clients["player2"].color);
 	} else if(!clients["player3"]) {
 		game.players[3].active = true;
 		socket.player = 3;
 		clients["player3"] = game.players[3];
 		game.playerCount++;
+		socket.emit("setColor", clients["player3"].color);
 	} else if(!clients["player4"]) {
 		game.players[4].active = true;
 		socket.player = 4;
 		clients["player4"] = game.players[4];
 		game.playerCount++;
+		socket.emit("setColor", clients["player4"].color);
 	}
 
 	if(state == "waiting") {

@@ -1,10 +1,10 @@
 function Game() {
 	this.active = false;
 	this.players = {
-		1 : require('./player')("Player 1", 10, 60, "blue", "right"),
-		2 : require('./player')("Player 2", 110, 60, "red", "left"),
-		3 : require('./player')("Player 3", 60, 10, "green", "down"),
-		4 : require('./player')("Player 4", 60, 110, "yellow", "up")
+		1 : require('./player')("Player 1", 10, 60, "#00F", "right"), // blue
+		2 : require('./player')("Player 2", 110, 60, "#F00", "left"), // red
+		3 : require('./player')("Player 3", 60, 10, "#0F0", "down"), // green
+		4 : require('./player')("Player 4", 60, 110, "#FF0", "up") // yellow
 	};
 	this.wall = [];
 	this.alivePlayers = [];
