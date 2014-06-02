@@ -58,6 +58,18 @@ socket.on("setColor", function(data) {
 	$('#colorPicker').spectrum("set", data);
 });
 
+socket.on('updateusers', function(data) {
+	users = JSON.parse(data);
+
+	$('#players').empty();
+	for(i=1; i<=4; i++) {
+		player = users["player"+i];
+		if(player) {
+			$('#players').append("<div><span style='color:"+ player.color +"'>" + player.player + "</span></div>");
+		}
+	}
+});
+
 socket.on('updateChat', function(player, color, message) {
 	$('#conversation').append("<span style='color:"+ color +"'><b>" + player + ":</b></span> " + message + "<br>");
 });

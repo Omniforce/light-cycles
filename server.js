@@ -33,6 +33,7 @@ var state = "selecting"; // can be "selecting", "waiting", "playing"
 io.sockets.on('connection', function(socket) {
 	socket.on('newPlayer', function() {
 		addPlayer(socket);
+		io.sockets.emit('updateusers', JSON.stringify(clients));
 	});
 
 	socket.on('nameChange',function(data){
@@ -41,6 +42,7 @@ io.sockets.on('connection', function(socket) {
 		
 		if(player) {
 			player.player = user_name.new_name;
+			io.sockets.emit('updateusers', JSON.stringify(clients));
 		}
 	});
 
@@ -48,6 +50,7 @@ io.sockets.on('connection', function(socket) {
 		player = game.players[socket.player];
 		if(player) {
 			player.color = data;
+			io.sockets.emit('updateusers', JSON.stringify(clients));
 		}
 	});
 
@@ -120,6 +123,8 @@ io.sockets.on('connection', function(socket) {
 				game.playerCount--;
 			}
 		}
+
+		io.sockets.emit('updateusers', JSON.stringify(clients));
 
 		if(noPlayers()) {
 			clearInterval(selectTimer);
