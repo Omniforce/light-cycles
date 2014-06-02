@@ -57,3 +57,7 @@ socket.on("death", function(data) {
 socket.on("setColor", function(data) {
 	$('#colorPicker').spectrum("set", data);
 });
+
+socket.on('updateChat', function(player, color, message) {
+	$('#conversation').append("<span style='color:"+ color +"'><b>" + player + ":</b></span> " + message + "<br>");
+});

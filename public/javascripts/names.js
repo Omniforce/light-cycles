@@ -14,4 +14,13 @@ $(function(){
 		    socket.emit("setColor", color.toHexString());
 		}
 	});
+
+	$('#sendMessage').click(function() {
+		var message = $('#chatMessage').val();
+		console.log(message);
+		if(message.length > 0) {
+			$('#chatMessage').val('');
+			socket.emit('sendChat', message);
+		}
+	});
 })

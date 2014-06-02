@@ -36,20 +36,11 @@ io.sockets.on('connection', function(socket) {
 	});
 
 	socket.on('nameChange',function(data){
-
 		user_name = JSON.parse(data);
-
-		if(socket.player === 1) {
-			game.players[1].player = user_name.new_name;
-		}
-		else if(socket.player === 2) {
-			game.players[2].player = user_name.new_name;
-		}
-		else if(socket.player === 3) {
-			game.players[3].player = user_name.new_name;
-		}
-		else if(socket.player === 4) {
-			game.players[4].player = user_name.new_name;
+		player = game.players[socket.player];
+		
+		if(player) {
+			player.player = user_name.new_name;
 		}
 	});
 
@@ -181,6 +172,11 @@ io.sockets.on('connection', function(socket) {
 	updatePointer = function() {
 		io.sockets.emit("updatePointer", JSON.stringify({ selection: pointer.selection }));
 	}
+
+	socket.on("sendChat", function(data) {
+		player = game.players[socket.player];
+		io.sockets.emit('updateChat', player.player, player.color, data);
+	});
 });
 
 function addPlayer(socket) {
