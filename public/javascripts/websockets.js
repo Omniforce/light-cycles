@@ -1,6 +1,7 @@
 var socket = io.connect('http://mabosbross-m2:3000');
 var gameOver = false;
 var waitingTimer;
+var textFocus = false;
 
 socket.on('connect', function() {
 	socket.emit('newPlayer');

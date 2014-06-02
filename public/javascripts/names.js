@@ -23,4 +23,11 @@ $(function(){
 			socket.emit('sendChat', message);
 		}
 	});
+
+	$('#chatMessage').focus(function() {
+		textFocus = true;
+	});
+	$('#chatMessage').focusout(function() {
+		textFocus = false;
+	});
 })

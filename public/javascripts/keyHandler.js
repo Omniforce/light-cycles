@@ -2,6 +2,9 @@ $(function(){
 	window.addEventListener('keydown', keyDown);
 
 	function keyDown(){
+
+		if(textFocus) { return true; }
+
 		var keyData;
 		if(event.keyCode === 37){
 			keyData = {key:'left'};
