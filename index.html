@@ -7,28 +7,33 @@
 	<script src="public/javascripts/websockets.js"></script>
 	<script src='public/javascripts/spectrum.js'></script>
 	<link rel='stylesheet' href='public/stylesheets/spectrum.css' />
+	<link rel='stylesheet' href='public/stylesheets/game.css' />
 </head>
 <body>
-	<div id="game" style="float:left;">
+	<div id="game">
 		<canvas id="canvas" width="600" height="600">
 			Please don't use IE
 		</canvas>
 	</div>
-	<div id="chat">
-		<div style="float:left; width:100px; border-right:1px solid black; height:300px; padding:10px; overflow:scroll-y;">
-			<b>Players</b>
-			<div id="players"></div>
+	<div id="content">
+		<div id="chatarea">
+			<div id="playerbox">
+				<div id="players"></div>
+			</div>
+			<div id="chatbox">
+				<div id="conversation"></div>
+				<div id="messageSubmit">
+					<input id="chatMessage"/>
+					<input type="button" id="sendMessage" value="send"/>
+				</div>
+			</div>
 		</div>
-
-		<div style="float:left; width:300px; height:250px; overflow:scroll-y; padding:10px">
-			<div id="conversation"></div>
-			<input id="chatMessage" style="width:200px"/>
-			<input type="button" id="sendMessage" value="send"/>
+		<div id="playerarea">
+			<form id='name_form'>
+				Name:<input type='text' name='name' id='user_name'>
+				<input type='submit' value="Submit">
+			</form>
+			<input type='text' id="colorPicker"/>
 		</div>
-		<form id='name_form'>
-			Name:<input type='text' name='name' id='user_name'>
-			<input type='submit' value="Submit">
-		</form>
-		<input type='text' id="colorPicker"/>
 	</div>
 </body>

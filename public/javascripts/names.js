@@ -24,6 +24,13 @@ $(function(){
 		}
 	});
 
+	$('#chatMessage').keypress(function(e) {
+		if(e.which == 13) {
+			$(this).blur();
+			$('#datasend').focus().click();
+		}
+	});
+
 	$('#chatMessage').focus(function() {
 		textFocus = true;
 	});

@@ -32,5 +32,4 @@ $(function(){
 		}
 		socket.emit('keyPress', JSON.stringify(keyData));
 	}
-
-})
+});

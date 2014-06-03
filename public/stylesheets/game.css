@@ -1,0 +1,40 @@
+#game {
+	float:left;
+}
+
+#playerbox {
+	float:left;
+	width:100px;
+	border-right: 1px solid black;
+	height: 300px;
+	padding: 10px;
+	overflow: scroll-y;
+}
+
+#chatbox {
+	float: left;
+	width: 500px;
+	height: 310px;
+	overflow: none;
+	position: relative;
+	padding: 5px;
+}
+
+#conversation {
+	overflow:   auto;
+	position: absolute;
+	bottom:     0;
+	max-height: 300px;
+}
+
+#chatMessage {
+	width: 200px;
+}
+
+#playerarea {
+	clear: left;
+}
+
+
+
+
