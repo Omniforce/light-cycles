@@ -2,39 +2,65 @@
 	float:left;
 }
 
+#content {
+	width: 650px;
+	height: 600px;
+	margin: 10px;
+	border: 3px solid black;
+	padding-right: 20px;
+	padding-left: 10px;
+}
+
 #playerbox {
-	float:left;
-	width:100px;
-	border-right: 1px solid black;
-	height: 300px;
+	vertical-align: top;
+	width: 35%;
+}
+
+#playersHeader {
+	text-align: left;
+}
+
+#players {
+	height: 450px;
+	font-size: 20px;
 	padding: 10px;
-	overflow: scroll-y;
 }
 
 #chatbox {
-	float: left;
-	width: 500px;
-	height: 310px;
-	overflow: none;
-	position: relative;
-	padding: 5px;
+	position:   relative;
+	width:      100%;
+	height:     450px;
 }
 
 #conversation {
 	overflow:   auto;
-	position: absolute;
+	word-wrap:  break-word;
+	position:   absolute;
 	bottom:     0;
-	max-height: 300px;
+	max-height: 95%;
+	width: 		93%;
+	padding: 	15px;
+}
+
+#name_form {
+	float: left;
 }
 
 #chatMessage {
-	width: 200px;
+	width: 340px;
+	height: 60px;
 }
 
-#playerarea {
-	clear: left;
+#user_name {
+	margin-right: 10px;
 }
 
+.rounded {
+	border-radius: 10px;
+}
 
-
-
+.shadow {
+   -moz-box-shadow:    inset 0 0 10px #000000;
+   -webkit-box-shadow: inset 0 0 10px #000000;
+   box-shadow:         inset 0 0 10px #000000;
+}

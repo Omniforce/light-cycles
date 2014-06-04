@@ -180,7 +180,9 @@ io.sockets.on('connection', function(socket) {
 
 	socket.on("sendChat", function(data) {
 		player = game.players[socket.player];
-		io.sockets.emit('updateChat', player.player, player.color, data);
+		if(player) {
+			io.sockets.emit('updateChat', player.player, player.color, data);
+		}
 	});
 });
 

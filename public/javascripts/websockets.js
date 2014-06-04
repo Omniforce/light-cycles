@@ -73,4 +73,5 @@ socket.on('updateusers', function(data) {
 
 socket.on('updateChat', function(player, color, message) {
 	$('#conversation').append("<span style='color:"+ color +"'><b>" + player + ":</b></span> " + message + "<br>");
+	$("#conversation").scrollTop($("#conversation")[0].scrollHeight);
 });

@@ -17,7 +17,6 @@ $(function(){
 
 	$('#sendMessage').click(function() {
 		var message = $('#chatMessage').val();
-		console.log(message);
 		if(message.length > 0) {
 			$('#chatMessage').val('');
 			socket.emit('sendChat', message);
@@ -26,8 +25,7 @@ $(function(){
 
 	$('#chatMessage').keypress(function(e) {
 		if(e.which == 13) {
-			$(this).blur();
-			$('#datasend').focus().click();
+			$('#sendMessage').click();
 		}
 	});
 
@@ -35,6 +33,12 @@ $(function(){
 		textFocus = true;
 	});
 	$('#chatMessage').focusout(function() {
+		textFocus = false;
+	});
+	$('#user_name').focus(function() {
+		textFocus = true;
+	});
+	$('#user_name').focusout(function() {
 		textFocus = false;
 	});
 })

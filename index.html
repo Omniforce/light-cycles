@@ -15,25 +15,35 @@
 			Please don't use IE
 		</canvas>
 	</div>
-	<div id="content">
-		<div id="chatarea">
-			<div id="playerbox">
+
+	<table id="content">
+		<tr>
+			<th id="playersHeader">Players</th>
+		</tr>
+		<tr>
+			<td id="playerbox" class="shadow rounded">
 				<div id="players"></div>
-			</div>
-			<div id="chatbox">
-				<div id="conversation"></div>
+			</td>
+			<td class="shadow rounded">
+				<div id="chatbox">
+					<div id="conversation"></div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p>Choose an name and color:</p>
+				<input type='text' id="colorPicker"/>
+				<form id='name_form'>
+					<input type='text' name='name' id='user_name'>
+				</form>
+			</td>
+			<td>
 				<div id="messageSubmit">
-					<input id="chatMessage"/>
+					<textarea id="chatMessage"></textarea>
 					<input type="button" id="sendMessage" value="send"/>
 				</div>
-			</div>
-		</div>
-		<div id="playerarea">
-			<form id='name_form'>
-				Name:<input type='text' name='name' id='user_name'>
-				<input type='submit' value="Submit">
-			</form>
-			<input type='text' id="colorPicker"/>
-		</div>
-	</div>
+			</td>
+		</tr>
+	</table>
 </body>
