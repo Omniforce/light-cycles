@@ -2,7 +2,7 @@ import { onPlayersUpdate, onSelectionUpdate, onWaiting, onCountdown, onGameUpdat
 
 import openSocket from 'socket.io-client';
 
-const socket = openSocket('http://localhost:4001');
+const socket = openSocket('http://localhost:1338');
 
 export const setupSocket = (store) => {
   socket.on('connect', () => { console.log("Connected!"); });
