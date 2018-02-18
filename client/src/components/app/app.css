@@ -1,0 +1,19 @@
+.content {
+  width: 1200px;
+  height: 600px;
+
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  margin: auto;
+}
+
+.sidebar {
+  width: 600px;
+  height: 600px;
+  float: right;
+  padding-left: 10px;
+}

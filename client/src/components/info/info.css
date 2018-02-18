@@ -1,0 +1,11 @@
+.ready-indicator {
+  width: 15px;
+  height: 15px;
+  border-radius: 50px;
+  margin-right: 10px;
+  background-color: #d9534f;
+}
+
+.ready {
+  background-color: #5cb85c;
+}
